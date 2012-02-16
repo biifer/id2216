@@ -11,6 +11,7 @@ public class AppActivity extends Activity {
         setContentView(R.layout.main);
         //HEJ HEJ
         //Nalle
+        //Ivan
         
     }
 }
