@@ -10,5 +10,7 @@ public class AppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         //HEJ HEJ
+        //Nalle
+        
     }
 }
