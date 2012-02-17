@@ -2,10 +2,14 @@ package app.example.com;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class PreviewActivity extends Activity {
 
@@ -17,6 +21,25 @@ public class PreviewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preview);
 
+		Button start = (Button)findViewById(R.id.start_button);
+        start.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent myIntent = new Intent(v.getContext(), MainActivity.class);
+				v.getContext().startActivity(myIntent);
+			}
+		});
+		
+        Button newRoute = (Button)findViewById(R.id.new_route_button);
+        start.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent myIntent = new Intent(v.getContext(), AppActivity.class);
+				v.getContext().startActivity(myIntent);
+			}
+		});
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		locationListener = new LocationListener() {
