@@ -4,5 +4,6 @@
     <string name="hello">Hello World, AppActivity!</string>
     <string name="app_name">App</string>
     <string name="welcome_normal">Normal mode</string>
+    <string name="summary">Summary</string>
 
 </resources>
