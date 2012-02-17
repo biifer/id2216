@@ -3,7 +3,9 @@
 
     <string name="hello">Hello World, AppActivity!</string>
     <string name="app_name">Map</string>
-    <string name="Normal_mode">Normal Mode</string>
+    <string name="normal_mode">Normal Mode</string>
     <string name="radius">Radius</string>
-    
+    <string name="welcome_normal">Normal mode</string>
+    <string name="summary">Summary</string>
+
 </resources>
