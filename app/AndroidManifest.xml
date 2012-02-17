@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PreviewActivity" android:label="Preview"></activity>
+        
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
     </uses-permission>	
