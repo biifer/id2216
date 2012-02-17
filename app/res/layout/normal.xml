@@ -4,34 +4,55 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_normal" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.33" >
 
-    <FrameLayout
-        android:id="@+id/frameLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.40" >
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout1"
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/spinner2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:prompt="@string/radius"
             android:layout_width="match_parent"
-            android:layout_height="72dp" >
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/spinner3"
+            android:layout_alignParentLeft="true" >
+        </Spinner>
 
-            <Button
-                android:id="@+id/generate_map_button"
-                android:layout_width="218dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="14dp"
-                android:text="Generate map" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/Normal_mode"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        </RelativeLayout>
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="38dp"
+            android:text="Generate Map" />
 
-    </FrameLayout>
+    </RelativeLayout>
 
 </LinearLayout>
-
