@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.40" >
-
+
+        
         <RelativeLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
@@ -28,7 +29,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="183dp"
                 android:text="Share" />
-
+
             <Button
                 android:id="@+id/menu_button"
                 android:layout_width="100dp"
