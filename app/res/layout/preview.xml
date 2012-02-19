@@ -13,8 +13,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" >
 
-
-
         <Button
             android:id="@+id/start_button"
             android:layout_width="150sp"
@@ -24,8 +22,6 @@
             android:layout_alignParentTop="true"
             android:text="@string/start" />
 
-
-
         <Button
             android:id="@+id/new_route_button"
             android:layout_width="150sp"
@@ -34,13 +30,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="@string/new_route" />
-
     </RelativeLayout>
 
-
-
     <RelativeLayout
-        android:id="@+id/relativeLayout3"
+        android:id="@+id/mapLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/relativeLayout2"
@@ -48,14 +41,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" >
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:src="@android:drawable/star_big_on" />
-
+        <com.google.android.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:apiKey="mapsKey"
+            android:clickable="true" />
     </RelativeLayout>
 
 </RelativeLayout>
