@@ -45,8 +45,8 @@
             android:id="@+id/mapView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:apiKey="mapsKey"
-            android:clickable="true" />
+            android:apiKey="0RUIqaVwf2_lIiBshPlEYfIGBXIJ4HDzaVZ2jdw"
+            android:clickable="false" />
     </RelativeLayout>
 
 </RelativeLayout>
