@@ -32,7 +32,7 @@ public class PreviewActivity extends Activity {
 		});
 		
         Button newRoute = (Button)findViewById(R.id.new_route_button);
-        start.setOnClickListener(new OnClickListener() {
+        newRoute.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
