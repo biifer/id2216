@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-	//	setContentView(R.layout.main);
+		setContentView(R.layout.normal);
 
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

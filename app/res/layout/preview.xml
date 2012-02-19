@@ -11,7 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" >
+        android:layout_alignParentLeft="true" >
+
+
+
+
+
+
+
         <Button
             android:id="@+id/start_button"
             android:layout_width="150sp"
@@ -19,8 +26,10 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="Button" />
-
+            android:text="@string/start" />
+
+
+
         <Button
             android:id="@+id/new_route_button"
             android:layout_width="150sp"
@@ -28,10 +37,12 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Button" />
+            android:text="@string/new_route" />
 
     </RelativeLayout>
-
+
+
+
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="wrap_content"
