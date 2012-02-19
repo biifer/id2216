@@ -9,5 +9,7 @@
     <string name="summary">Summary</string>
     <string name="start">Start!</string>
     <string name="new_route">New route</string>
+    <string name="options">Options</string>
+    <string name="help">Help</string>
 
 </resources>
