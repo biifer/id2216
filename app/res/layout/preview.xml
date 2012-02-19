@@ -15,10 +15,6 @@
 
 
 
-
-
-
-
         <Button
             android:id="@+id/start_button"
             android:layout_width="150sp"
@@ -26,7 +22,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="Button" />
+            android:text="@string/start" />
 
 
 
@@ -37,7 +33,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Button" />
+            android:text="@string/new_route" />
 
     </RelativeLayout>
 

@@ -7,5 +7,7 @@
     <string name="radius">Radius</string>
     <string name="welcome_normal">Normal mode</string>
     <string name="summary">Summary</string>
+    <string name="start">Start!</string>
+    <string name="new_route">New route</string>
 
 </resources>
