@@ -28,15 +28,28 @@ AdapterView.OnItemSelectedListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.normal);
 
-		Spinner spin = (Spinner) findViewById(R.id.spinner1);
-		spin.setOnItemSelectedListener(this);
+		Spinner spin_1 = (Spinner) findViewById(R.id.spinner1);
+		Spinner spin_3 = (Spinner) findViewById(R.id.spinner3);
+		Spinner spin_2 = (Spinner) findViewById(R.id.spinner2);
+		
+		spin_1.setOnItemSelectedListener(this);
+		spin_3.setOnItemSelectedListener(this);
+		spin_2.setOnItemSelectedListener(this);
 
-		ArrayAdapter<Object> aa = new ArrayAdapter<Object>(this,
-				android.R.layout.simple_spinner_item, items);
+		ArrayAdapter<CharSequence> adapter_1 = ArrayAdapter.createFromResource(
+	            this, R.array.radius_spinner, android.R.layout.simple_spinner_item);
+		ArrayAdapter<CharSequence> adapter_3 = ArrayAdapter.createFromResource(
+	            this, R.array.flag_spinner, android.R.layout.simple_spinner_item);
+		ArrayAdapter<CharSequence> adapter_2 = ArrayAdapter.createFromResource(
+	            this, R.array.distance_spinner, android.R.layout.simple_spinner_item);
 
-		aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spin.setAdapter(aa);
-		setContentView(R.layout.normal);
+		adapter_1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapter_3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spin_1.setAdapter(adapter_1);
+		spin_3.setAdapter(adapter_3);
+		spin_2.setAdapter(adapter_2);
+		//setContentView(R.layout.normal);
 
 		Button generateMap = (Button) findViewById(R.id.generate_map_button);
 		generateMap.setOnClickListener(new OnClickListener() {

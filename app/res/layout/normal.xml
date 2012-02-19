@@ -28,11 +28,13 @@
 
         <Spinner
             android:id="@+id/spinner1"
-            android:prompt="@string/radius"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/spinner3"
-            android:layout_alignParentLeft="true" >
+            android:layout_alignParentLeft="true"
+            android:prompt="@string/radius" >
+            <!-- Preview: listitem=@android:layout/simple_spinner_dropdown_item -->
+
         </Spinner>
 
         <TextView

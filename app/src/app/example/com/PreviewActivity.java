@@ -10,6 +10,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,6 +23,13 @@ public class PreviewActivity extends MapActivity {
 	private LocationListener locationListener;
 	LinearLayout linerarLayout;
 	MapView mapView;
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu, menu);
+	    return true;
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 

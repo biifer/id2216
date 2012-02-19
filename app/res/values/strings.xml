@@ -11,5 +11,38 @@
     <string name="new_route">New route</string>
     <string name="options">Options</string>
     <string name="help">Help</string>
+        <string-array name="radius_spinner">
+        <item>Radius: 1km</item>
+        <item>Radius: 2km</item>
+        <item>Radius: 3km</item>
+        <item>Radius: 4km</item>
+        <item>Radius: 5km</item>
+    </string-array>
+            <string-array name="flag_spinner">
+        <item>Flags: 1</item>
+        <item>Flags: 2</item>
+        <item>Flags: 3</item>
+        <item>Flags: 4</item>
+        <item>Flags: 5</item>
+        <item>Flags: 6</item>
+        <item>Flags: 7</item>
+        <item>Flags: 8</item>
+        <item>Flags: 9</item>
+    </string-array>
+                <string-array name="distance_spinner">
+        <item>Distance: 1 km</item>
+        <item>Distance: 2 km</item>
+        <item>Distance: 3 km</item>
+        <item>Distance: 4 km</item>
+        <item>Distance: 5 km</item>
+        <item>Distance: 6 km</item>
+        <item>Distance: 7 km</item>
+        <item>Distance: 8 km</item>
+        <item>Distance: 9 km</item>
+        <item>Distance: 10 km</item>
+        <item>Distance: 15 km</item>
+        <item>Distance: 20 km</item>
+
+    </string-array>
 
 </resources>
