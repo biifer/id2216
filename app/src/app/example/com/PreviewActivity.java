@@ -3,7 +3,6 @@ package app.example.com;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
