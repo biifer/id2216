@@ -26,6 +26,9 @@ public class PreviewActivity extends MapActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preview);
+		
+		mapView = (MapView) findViewById(R.id.mapview);
+		mapView.setBuiltInZoomControls(true);
 
 		Button start = (Button)findViewById(R.id.start_button);
         start.setOnClickListener(new OnClickListener() {
@@ -79,6 +82,6 @@ public class PreviewActivity extends MapActivity {
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }
