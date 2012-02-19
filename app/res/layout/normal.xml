@@ -53,6 +53,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="38dp"
+            android:background="@drawable/custom_button"
             android:text="Generate Map" />
 
     </RelativeLayout>
