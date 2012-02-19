@@ -42,7 +42,7 @@
         android:layout_alignParentTop="true" >
 
         <com.google.android.maps.MapView
-            android:id="@+id/mapView"
+            android:id="@+id/mapview"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:apiKey="0RUIqaVwf2_lIiBshPlEYfIGBXIJ4HDzaVZ2jdw"

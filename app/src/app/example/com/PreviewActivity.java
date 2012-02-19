@@ -1,5 +1,8 @@
 package app.example.com;
 
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +13,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class PreviewActivity extends Activity {
+public class PreviewActivity extends MapActivity {
 
 	private LocationManager lm;
 	private LocationListener locationListener;
+	LinearLayout linerarLayout;
+	MapView mapView;
 
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -68,5 +74,11 @@ public class PreviewActivity extends Activity {
 
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
 				locationListener);
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
