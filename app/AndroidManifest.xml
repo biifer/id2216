@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PreviewActivity" android:label="Preview"></activity>
+        <activity android:name=".MainActivity" android:label="Main"></activity>
         
     </application>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">

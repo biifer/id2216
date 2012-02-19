@@ -11,6 +11,9 @@
     <string name="new_route">New route</string>
     <string name="options">Options</string>
     <string name="help">Help</string>
+    <string name="distance_to_p">Distance to nearest point: </string>
+    <string name="speed">Speed: </string>
+    <string name="total_distance">Total distance: </string>
         <string-array name="radius_spinner">
         <item>Radius: 1km</item>
         <item>Radius: 2km</item>
