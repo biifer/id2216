@@ -29,6 +29,7 @@ public class SummaryActivity extends MapActivity {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		editor = settings.edit();
 		
+		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
 			

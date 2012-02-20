@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 public class PreviewActivity extends MapActivity {
 
+	int averageSpeed;
+	int time;
 	private LocationManager lm;
 	private LocationListener locationListener;
 	LinearLayout linerarLayout;
@@ -89,8 +91,8 @@ public class PreviewActivity extends MapActivity {
 				
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 				SharedPreferences.Editor editor = settings.edit();
-				editor.putInt("time", valueOfTimer);
-				editor.putInt("averageSpeed", valueOfAverageSpeed);
+				editor.putInt("time", time);
+				editor.putInt("averageSpeed", averageSpeed);
 				
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), SummaryActivity.class);
