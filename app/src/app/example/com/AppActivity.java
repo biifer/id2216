@@ -22,7 +22,7 @@ AdapterView.OnItemSelectedListener {
     protected ArrayAdapter<CharSequence> flagAdapter;
     protected ArrayAdapter<CharSequence> distanceAdapter;
 
-    private static final String PREFS_NAME = "MyPrefs";	
+    private static final String PREFS_NAME = "PrefsFile";	
 	
     boolean option1;
     boolean option2;
@@ -55,12 +55,14 @@ AdapterView.OnItemSelectedListener {
 	}
 	
 	private void saveToMyPrefs() {
-		int value = 0;
+		int value = 13;
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 	    SharedPreferences.Editor editor = settings.edit();
 	    editor.putInt("Distance", value);
 	    editor.putInt("nrOfFlags", value);
-	    editor.putInt("Radius", value);		
+	    editor.putInt("Radius", value);	
+	    editor.putString("test", "FUUUUUU");
+	    editor.commit();
 	}
 	
 	private void loadFromMyPrefs() {
@@ -76,7 +78,7 @@ AdapterView.OnItemSelectedListener {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.normal);
-
+		saveToMyPrefs();
 		
 		Spinner radiusSpinner = (Spinner) findViewById(R.id.spinner1);
 		Spinner flagSpinner = (Spinner) findViewById(R.id.spinner3);
