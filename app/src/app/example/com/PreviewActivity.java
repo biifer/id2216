@@ -33,13 +33,19 @@ public class PreviewActivity extends MapActivity {
 	LinearLayout linerarLayout;
 	MapView mapView;
 	
-	public static final String PREFS_NAME = "PrefsFile";
+	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, 
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.menu, menu);
 	    return true;
+	}
+	
+	private void saveToMyPrefs() {
+		//TODO lägga in alla parametrar som ska sparas till summary, koordinater av flaggor: hur lösa det?
+		
 	}
 	
 	

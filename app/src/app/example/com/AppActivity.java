@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,8 +22,12 @@ AdapterView.OnItemSelectedListener {
     protected ArrayAdapter<CharSequence> flagAdapter;
     protected ArrayAdapter<CharSequence> distanceAdapter;
 
+    private static final String PREFS_NAME = "MyPrefs";	
 	
-	
+    boolean option1;
+    boolean option2;
+    boolean option3;
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -41,14 +46,43 @@ AdapterView.OnItemSelectedListener {
 	            startActivity(intent);
 				break;
 	        case R.id.help:
-	        	intent.setClass(AppActivity.this, HelpActivity.class);
-	        	startActivity(intent);
+	        	 Dialog dialog = new Dialog(AppActivity.this);
+	                dialog.setContentView(R.layout.help);
+	                dialog.setTitle("Help");
+	                dialog.setCancelable(true);
+
+	                TextView text = (TextView) dialog.findViewById(R.id.Text);
+	                text.setText("Apa");
+
+	                Button button = (Button) dialog.findViewById(R.id.cancel);
+	                button.setOnClickListener(new OnClickListener() {
+	                public void onClick(View v) {
+	                        finish();
+	                    }
+	                });
+	                dialog.show();
 	        default:
 	        	break;
 	    }
 	    return false;
 	}
 	
+	private void saveToMyPrefs() {
+		int value = 0;
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+	    SharedPreferences.Editor editor = settings.edit();
+	    editor.putInt("Distance", value);
+	    editor.putInt("nrOfFlags", value);
+	    editor.putInt("Radius", value);		
+	}
+	
+	private void loadFromMyPrefs() {
+		boolean defValue = false;
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		option1 = settings.getBoolean("settings_Option1", defValue);
+		option2 = settings.getBoolean("settings_option2", defValue);
+		option3 = settings.getBoolean("settings_option3", defValue);
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +118,7 @@ AdapterView.OnItemSelectedListener {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				saveToMyPrefs();
 				Intent myIntent = new Intent(v.getContext(),
 						PreviewActivity.class);
 				v.getContext().startActivity(myIntent);
