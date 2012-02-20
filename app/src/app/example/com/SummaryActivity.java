@@ -2,6 +2,7 @@ package app.example.com;
 
 import com.google.android.maps.MapActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +24,8 @@ public class SummaryActivity extends MapActivity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+				Intent myIntent = new Intent(v.getContext(), AppActivity.class);
+				v.getContext().startActivity(myIntent);
 			}
 		});
         
