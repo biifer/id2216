@@ -41,19 +41,19 @@ AdapterView.OnItemSelectedListener {
 		flagSpinner.setOnItemSelectedListener(this);
 		distanceSpinner.setOnItemSelectedListener(this);
 
-		radiusAdapter= ArrayAdapter.createFromResource(
+		this.radiusAdapter= ArrayAdapter.createFromResource(
 	            this, R.array.radius_spinner, android.R.layout.simple_spinner_item);
-		flagAdapter = ArrayAdapter.createFromResource(
+		this.flagAdapter = ArrayAdapter.createFromResource(
 	            this, R.array.flag_spinner, android.R.layout.simple_spinner_item);
-		distanceAdapter = ArrayAdapter.createFromResource(
+		this.distanceAdapter = ArrayAdapter.createFromResource(
 	            this, R.array.distance_spinner, android.R.layout.simple_spinner_item);
 
 		radiusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		flagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		distanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		radiusSpinner.setAdapter(radiusAdapter);
-		flagSpinner.setAdapter(flagAdapter);
-		distanceSpinner.setAdapter(distanceAdapter);
+		radiusSpinner.setAdapter(this.radiusAdapter);
+		flagSpinner.setAdapter(this.flagAdapter);
+		distanceSpinner.setAdapter(this.distanceAdapter);
 		//setContentView(R.layout.normal);
 
 		Button generateMap = (Button) findViewById(R.id.generate_map_button);
