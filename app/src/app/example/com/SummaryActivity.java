@@ -1,13 +1,13 @@
 package app.example.com;
 
-import android.app.Activity;
-import android.content.Intent;
+import com.google.android.maps.MapActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class SummaryActivity extends Activity {
+public class SummaryActivity extends MapActivity {
 
 	int totalTime;
 	int totalDistance;
@@ -51,5 +51,11 @@ public class SummaryActivity extends Activity {
 	
 	public void setNumberOfFlags (int n) {
 		
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

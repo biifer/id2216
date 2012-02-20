@@ -3,44 +3,64 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="74dp"
-        android:text="@string/summary" />
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Summary"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/summary_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total time: 
+		Total distance: 
+		Average speed: 
+		No of flags: "
+        android:textSize="16dp" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="280dp" >
+
+        <com.google.android.maps.MapView
+            android:id="@+id/mapview_summary"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:apiKey="0RUIqaVwf2_lIiBshPlEYfIGBXIJ4HDzaVZ2jdw"
+            android:clickable="true" />
+    </RelativeLayout>
+
     <FrameLayout
         android:id="@+id/frameLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.40" >
 
-        
         <RelativeLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
-            android:layout_height="499dp" >
+            android:layout_height="214dp" >
 
             <Button
                 android:id="@+id/share_button"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="183dp"
                 android:text="Share" />
-
+
             <Button
                 android:id="@+id/menu_button"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_alignLeft="@+id/share_button"
-                android:layout_alignTop="@+id/share_button"
-                android:layout_marginTop="73dp"
+                android:layout_below="@+id/share_button"
                 android:text="Menu" />
-
         </RelativeLayout>
-
     </FrameLayout>
 
 </LinearLayout>
