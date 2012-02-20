@@ -33,6 +33,7 @@ AdapterView.OnItemSelectedListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.normal);
 
+		
 		Spinner radiusSpinner = (Spinner) findViewById(R.id.spinner1);
 		Spinner flagSpinner = (Spinner) findViewById(R.id.spinner3);
 		Spinner distanceSpinner = (Spinner) findViewById(R.id.spinner2);
