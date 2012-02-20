@@ -34,13 +34,17 @@ AdapterView.OnItemSelectedListener {
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
+		Intent intent = new Intent();
 	    switch (item.getItemId()) {
 	        case R.id.options:
 	            //Start OptionsActivity 
-	        	Intent intent = new Intent();
 	            intent.setClass(AppActivity.this, OptionsActivity.class);
-	            startActivityForResult(intent, 0);
+	          //  startActivityForResult(intent, 0);
+	            startActivity(intent);
 				break;
+	        case R.id.help:
+	        	intent.setClass(AppActivity.this, HelpActivity.class);
+	        	startActivity(intent);
 	        default:
 	        	break;
 	    }

@@ -19,9 +19,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PreviewActivity" android:label="Preview"></activity>
-        <activity android:name=".MainActivity" android:label="Main"></activity>
-        <activity android:name=".OptionsActivity" android:label="Options"></activity>
+        <activity android:name=".PreviewActivity" android:label="Preview">
+            
+        </activity>
+        <activity android:name=".MainActivity" android:label="Main">
+            
+        </activity>
+        <activity android:name=".OptionsActivity" android:label="Options">
+            
+        </activity>
+        <activity android:name=".HelpActivity" android:label="Help">
+            
+        </activity>
+            
             
         
     </application>
