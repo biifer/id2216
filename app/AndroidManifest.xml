@@ -31,6 +31,9 @@
         <activity android:name=".HelpActivity" android:label="Help">
             
         </activity>
+         <activity android:name=".SummaryActivity" android:label="Summary">
+            
+        </activity>
             
             
         

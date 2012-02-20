@@ -79,6 +79,16 @@ public class PreviewActivity extends MapActivity {
 			}
 		});
         
+        Button summary = (Button) findViewById(R.id.summary);
+        summary.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent myIntent = new Intent(v.getContext(), SummaryActivity.class);
+				v.getContext().startActivity(myIntent);
+			}
+		});
+        
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		locationListener = new LocationListener() {
