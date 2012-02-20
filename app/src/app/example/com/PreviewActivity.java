@@ -1,5 +1,7 @@
 package app.example.com;
 
+import java.nio.charset.Charset;
+
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
@@ -64,7 +66,18 @@ public class PreviewActivity extends MapActivity {
 			}
 		});
         
-
+        Button checkPoint = (Button) findViewById(R.id.checkpoint);
+        checkPoint.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO Auto-generated method stub				
+				Context context = getApplicationContext();
+				CharSequence text = "Checkpoint";
+				int duration = Toast.LENGTH_LONG;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();		
+			}
+		});
         
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
