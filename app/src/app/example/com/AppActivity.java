@@ -5,10 +5,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.*;
 import android.widget.*;
 import android.view.View.OnClickListener;
 
@@ -40,8 +42,15 @@ AdapterView.OnItemSelectedListener {
 	            startActivity(intent);
 				break;
 	        case R.id.help:
-	        	intent.setClass(AppActivity.this, HelpActivity.class);
-	        	startActivity(intent);
+	        	LayoutInflater inflater = (LayoutInflater)
+	            this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	         PopupWindow pw = new PopupWindow(
+	            inflater.inflate(R.layout.help, null, false), 
+	            100, 
+	            100, 
+	            true);
+	         // The code below assumes that the root container has an id called 'main'
+	         pw.showAtLocation(this.findViewById(R.layout.normal), Gravity.CENTER, 0, 0); 
 	        default:
 	        	break;
 	    }
