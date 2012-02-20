@@ -7,10 +7,12 @@ import com.google.android.maps.MapView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -34,12 +36,14 @@ public class PreviewActivity extends MapActivity {
 	    inflater.inflate(R.menu.menu, menu);
 	    return true;
 	}
-
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.preview);
 		
+		setContentView(R.layout.preview);
+
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 
