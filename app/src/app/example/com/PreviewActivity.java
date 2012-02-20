@@ -64,15 +64,8 @@ public class PreviewActivity extends MapActivity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				View buttons = findViewById(R.id.relativeLayout2);
-				View cm = findViewById(R.id.chronometer);
-				buttons.setVisibility(RelativeLayout.GONE);
-				View text = findViewById(R.id.linearLayout1);
-				text.setVisibility(LinearLayout.VISIBLE);
-				cm.setVisibility(Chronometer.VISIBLE);
-				((Chronometer) cm).start();
-				//Intent myIntent = new Intent(v.getContext(), PreviewActivity.class);
-				//v.getContext().startActivity(myIntent);
+				Intent myIntent = new Intent(v.getContext(), MainActivity.class);
+				v.getContext().startActivity(myIntent);
 			}
 		});
 		
