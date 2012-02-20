@@ -25,12 +25,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:textColor="@color/black"
             android:text="@string/distance_to_p" />
 
         <TextView
             android:id="@+id/speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/distance_to_point"
             android:text="@string/speed" />
@@ -40,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:textColor="@color/black"
             android:layout_below="@+id/speed"
             android:text="@string/total_distance" />
     </RelativeLayout>

@@ -33,7 +33,8 @@
             android:layout_alignParentTop="true"
             android:text="@string/new_route" />
     </RelativeLayout>
-
+	
+    
     <RelativeLayout
         android:id="@+id/mapLayout"
         android:layout_width="wrap_content"
@@ -49,6 +50,45 @@
             android:layout_height="fill_parent"
             android:apiKey="0RUIqaVwf2_lIiBshPlEYfIGBXIJ4HDzaVZ2jdw"
             android:clickable="true" />
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:orientation="vertical" >
+        
+                <TextView
+            android:id="@+id/distance_to_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/black"
+            android:text="@string/distance_to_p" />
+
+        <TextView
+            android:id="@+id/speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/distance_to_point"
+            android:text="@string/speed" />
+
+        <TextView
+            android:id="@+id/total_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/black"
+            android:layout_below="@+id/speed"
+            android:text="@string/total_distance" />
+
+    </LinearLayout>
 
 </RelativeLayout>
