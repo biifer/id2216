@@ -30,8 +30,8 @@
 
         <Button
             android:id="@+id/generate_map_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="38dp"
@@ -78,6 +78,8 @@
             android:layout_above="@+id/spinner1"
             android:layout_alignParentLeft="true"
             android:text="Set max range of a spawning flag" />
+
+
 
     </RelativeLayout>
 

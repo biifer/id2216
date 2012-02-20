@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -64,9 +65,12 @@ public class PreviewActivity extends MapActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				View buttons = findViewById(R.id.relativeLayout2);
+				View cm = findViewById(R.id.chronometer);
 				buttons.setVisibility(RelativeLayout.GONE);
 				View text = findViewById(R.id.linearLayout1);
 				text.setVisibility(LinearLayout.VISIBLE);
+				cm.setVisibility(Chronometer.VISIBLE);
+				((Chronometer) cm).start();
 				//Intent myIntent = new Intent(v.getContext(), PreviewActivity.class);
 				//v.getContext().startActivity(myIntent);
 			}
