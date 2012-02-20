@@ -2,6 +2,7 @@ package app.example.com;
 
 import com.google.android.maps.MapActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SummaryActivity extends MapActivity {
 
@@ -22,16 +24,25 @@ public class SummaryActivity extends MapActivity {
 	int totalDistance;
 	int averageSpeed;
 	int numberOfFlags;
+	String defValue;
+	String hej;
+	
+	public void saveToMyPrefs() {
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		editor = settings.edit();
+	}
+	
+	public String loadFromMyPrefs() {
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		hej = settings.getString("test", defValue);
+	return hej;
+	}
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.summary);
-		
-		settings = getSharedPreferences(PREFS_NAME, 0);
-		editor = settings.edit();
-		
-		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
 			
@@ -47,7 +58,11 @@ public class SummaryActivity extends MapActivity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				Context context = getApplicationContext();
+				CharSequence text = loadFromMyPrefs();
+				int duration = Toast.LENGTH_LONG;
+				Toast toast = Toast.makeText(context, text, duration);
+				toast.show();
 			}
 		});
 	}
