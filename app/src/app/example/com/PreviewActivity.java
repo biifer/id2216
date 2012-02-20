@@ -7,6 +7,7 @@ import com.google.android.maps.MapView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,6 +27,8 @@ public class PreviewActivity extends MapActivity {
 	private LocationListener locationListener;
 	LinearLayout linerarLayout;
 	MapView mapView;
+	
+	public static final String PREFS_NAME = "PrefsFile";
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,6 +86,12 @@ public class PreviewActivity extends MapActivity {
         summary.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
+				
+				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putInt("time", valueOfTimer);
+				editor.putInt("averageSpeed", valueOfAverageSpeed);
+				
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), SummaryActivity.class);
 				v.getContext().startActivity(myIntent);

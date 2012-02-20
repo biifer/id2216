@@ -3,6 +3,7 @@ package app.example.com;
 import com.google.android.maps.MapActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,6 +11,12 @@ import android.widget.Button;
 
 public class SummaryActivity extends MapActivity {
 
+	public static final String PREFS_NAME = "PrefsFile";
+	
+	SharedPreferences settings;
+	SharedPreferences.Editor editor;
+	
+	String name;
 	int totalTime;
 	int totalDistance;
 	int averageSpeed;
@@ -18,6 +25,9 @@ public class SummaryActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.summary);
+		
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		editor = settings.edit();
 		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
@@ -34,7 +44,7 @@ public class SummaryActivity extends MapActivity {
 			
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			
+				
 			}
 		});
 	}
