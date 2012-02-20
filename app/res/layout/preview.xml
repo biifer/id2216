@@ -51,6 +51,22 @@
             android:apiKey="0RUIqaVwf2_lIiBshPlEYfIGBXIJ4HDzaVZ2jdw"
             android:clickable="true" />
 
+        <Button
+            android:id="@+id/checkpoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Checkpoint" />
+
+        <Button
+            android:id="@+id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/checkpoint"
+            android:text="Summary" />
+
     </RelativeLayout>
 
     <LinearLayout
