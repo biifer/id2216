@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class SummaryActivity extends MapActivity {
 
-	public static final String PREFS_NAME = "PrefsFile";
+	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, 
 	
 	SharedPreferences settings;
 	SharedPreferences.Editor editor;

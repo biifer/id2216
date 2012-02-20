@@ -7,11 +7,13 @@ import com.google.android.maps.MapView;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -31,7 +33,8 @@ public class PreviewActivity extends MapActivity {
 	LinearLayout linerarLayout;
 	MapView mapView;
 	
-	public static final String PREFS_NAME = "PrefsFile";
+	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, 
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,12 +42,19 @@ public class PreviewActivity extends MapActivity {
 	    inflater.inflate(R.menu.menu, menu);
 	    return true;
 	}
-
+	
+	private void saveToMyPrefs() {
+		//TODO lägga in alla parametrar som ska sparas till summary, koordinater av flaggor: hur lösa det?
+		
+	}
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.preview);
 		
+		setContentView(R.layout.preview);
+
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 
