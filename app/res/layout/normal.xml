@@ -39,15 +39,6 @@
 
         </Spinner>
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/normal_mode"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
         <Button
             android:id="@+id/generate_map_button"
             android:layout_width="wrap_content"
@@ -57,6 +48,15 @@
             android:layout_marginBottom="38dp"
             android:background="@drawable/custom_button"
             android:text="Generate Map" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/normal_mode"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
     </RelativeLayout>
 

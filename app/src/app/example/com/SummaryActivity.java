@@ -5,18 +5,15 @@ import com.google.android.maps.MapActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class SummaryActivity extends MapActivity {
 
-	int totalTime;
-	int totalDistance;
-	int averageSpeed;
-	int numberOfFlags;
-	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.summary);
 		
 		Button menu = (Button)findViewById(R.id.menu_button);
@@ -35,24 +32,14 @@ public class SummaryActivity extends MapActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 			
+				/*
+				 * Insert code here to upload data to a server.
+				 * 
+				 * Show toast upon success.
+				 * 
+				 */
 			}
 		});
-	}
-	
-	public void setTotalTime (int t) {
-		
-	}
-	
-	public void setTotalDistance (int d) {
-		
-	}
-	
-	public void setAverageSpeed (int s) {
-		
-	}
-	
-	public void setNumberOfFlags (int n) {
-		
 	}
 
 	@Override

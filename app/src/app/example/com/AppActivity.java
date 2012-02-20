@@ -61,8 +61,8 @@ AdapterView.OnItemSelectedListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.normal);
-
 		
 		Spinner radiusSpinner = (Spinner) findViewById(R.id.spinner1);
 		Spinner flagSpinner = (Spinner) findViewById(R.id.spinner3);
