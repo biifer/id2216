@@ -41,8 +41,21 @@ AdapterView.OnItemSelectedListener {
 	            startActivity(intent);
 				break;
 	        case R.id.help:
-	        	intent.setClass(AppActivity.this, HelpActivity.class);
-	        	startActivity(intent);
+	        	 Dialog dialog = new Dialog(AppActivity.this);
+	                dialog.setContentView(R.layout.help);
+	                dialog.setTitle("Help");
+	                dialog.setCancelable(true);
+
+	                TextView text = (TextView) dialog.findViewById(R.id.Text);
+	                text.setText("Apa");
+
+	                Button button = (Button) dialog.findViewById(R.id.cancel);
+	                button.setOnClickListener(new OnClickListener() {
+	                public void onClick(View v) {
+	                        finish();
+	                    }
+	                });
+	                dialog.show();
 	        default:
 	        	break;
 	    }
