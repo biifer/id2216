@@ -24,20 +24,26 @@ public class SummaryActivity extends MapActivity {
 	int totalDistance;
 	int averageSpeed;
 	int numberOfFlags;
-	String defValue;
-	String hej;
+	
 	
 	public void saveToMyPrefs() {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		editor = settings.edit();
 	}
 	
-	public String loadFromMyPrefs() {
+	public String loadStringFromMyPrefs() {
+		String defValue = "fel";
 		settings = getSharedPreferences(PREFS_NAME, 0);
-		hej = settings.getString("test", defValue);
+		String hej = settings.getString("radius", defValue);
 	return hej;
 	}
 	
+	public int loadIntFromMyPrefs() {
+		int defValue = -1;
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		int hej = settings.getInt("radius", defValue);
+	return hej;
+	}
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,7 +65,10 @@ public class SummaryActivity extends MapActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Context context = getApplicationContext();
-				CharSequence text = loadFromMyPrefs();
+				
+				
+				String i = loadStringFromMyPrefs();
+				CharSequence text = i;
 				int duration = Toast.LENGTH_LONG;
 				Toast toast = Toast.makeText(context, text, duration);
 				toast.show();

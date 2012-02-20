@@ -68,14 +68,17 @@ AdapterView.OnItemSelectedListener {
 	    return false;
 	}
 	
-	private void saveToMyPrefs() {
-		int value = 13;
+	private void saveIntToMyPrefs(String key, int value) {
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putInt(key, value);
+		editor.commit();
+	}
+	
+	private void saveStringToMyPrefs(String key, String value) {
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 	    SharedPreferences.Editor editor = settings.edit();
-	    editor.putInt("Distance", value);
-	    editor.putInt("nrOfFlags", value);
-	    editor.putInt("Radius", value);	
-	    editor.putString("test", "FUUUUUU");
+	    editor.putString(key, value);
 	    editor.commit();
 	}
 	
@@ -92,11 +95,10 @@ AdapterView.OnItemSelectedListener {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.normal);
-		saveToMyPrefs();
 		
-		Spinner radiusSpinner = (Spinner) findViewById(R.id.spinner1);
-		Spinner flagSpinner = (Spinner) findViewById(R.id.spinner3);
-		Spinner distanceSpinner = (Spinner) findViewById(R.id.spinner2);
+		Spinner radiusSpinner = (Spinner) findViewById(R.id.radiusSpinner);
+		Spinner flagSpinner = (Spinner) findViewById(R.id.flagSpinner);
+		Spinner distanceSpinner = (Spinner) findViewById(R.id.distanceSpinner);
 		
 		radiusSpinner.setOnItemSelectedListener(this);
 		flagSpinner.setOnItemSelectedListener(this);
@@ -121,16 +123,30 @@ AdapterView.OnItemSelectedListener {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				saveToMyPrefs();
 				Intent myIntent = new Intent(v.getContext(),
-						PreviewActivity.class);
+				PreviewActivity.class);
 				v.getContext().startActivity(myIntent);
 			}
 		});
 	}
 
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+	public void onItemSelected(AdapterView<?> parent, View arg1, int pos,
 			long arg3) {
+		
+	//	String selected = parent.getItemAtPosition(pos).toString();
+	/*	Object id = parent.getAdapter();
+		if( id == radiusAdapter) {
+			String selected = parent.getItemAtPosition(pos).toString();
+			saveStringToMyPrefs("test2", selected);
+		}else if (id == flagAdapter) {
+			String selected = parent.getItemAtPosition(pos).toString();
+			saveStringToMyPrefs("flags", selected);
+		}else if (id == distanceAdapter) {
+			String selected = parent.getItemAtPosition(pos).toString();
+			saveStringToMyPrefs("distance", selected);
+		}
+*/
+		
 	}
 
 	public void onNothingSelected(AdapterView<?> arg0) {

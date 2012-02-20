@@ -11,7 +11,7 @@
         android:layout_weight="0.33" >
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/radiusSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -47,7 +47,7 @@
             android:text="Set the max distance you want to run." />
 
         <Spinner
-            android:id="@+id/spinner3"
+            android:id="@+id/flagSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/textView4"
@@ -64,7 +64,7 @@
             android:text="Set number of flags to be spawn." />
 
         <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/distanceSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/textView3"
