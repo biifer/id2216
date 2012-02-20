@@ -19,26 +19,6 @@
             android:layout_centerVertical="true"
             android:prompt="@string/distance" />
 
-        <Spinner
-            android:id="@+id/spinner3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/spinner2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:prompt="@string/flags" />
-
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/spinner3"
-            android:layout_alignParentLeft="true"
-            android:prompt="@string/radius" >
-            <!-- Preview: listitem=@android:layout/simple_spinner_dropdown_item -->
-
-        </Spinner>
-
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -57,6 +37,47 @@
             android:layout_marginBottom="38dp"
             android:background="@drawable/custom_button"
             android:text="Generate Map" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/spinner2"
+            android:layout_alignParentLeft="true"
+            android:text="Set the max distance you want to run." />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:prompt="@string/flags" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/spinner3"
+            android:layout_alignParentLeft="true"
+            android:text="Set number of flags to be spawn." />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView3"
+            android:layout_alignParentLeft="true"
+            android:prompt="@string/radius" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/spinner1"
+            android:layout_alignParentLeft="true"
+            android:text="Set max range of a spawning flag" />
 
     </RelativeLayout>
 
