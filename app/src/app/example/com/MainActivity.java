@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.LinearLayout;
 
 public class MainActivity extends MapActivity {
@@ -20,6 +21,7 @@ public class MainActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
 		
 		mapView = (MapView) findViewById(R.id.mapviewMain);
