@@ -1,10 +1,13 @@
 package app.example.com;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import android.view.View.OnClickListener;
@@ -14,6 +17,8 @@ public class AppActivity extends Activity implements
 AdapterView.OnItemSelectedListener {
 	String[] items = { "1km", "2km", "3km", "infinity" };
 		
+	
+	
     protected ArrayAdapter<CharSequence> radiusAdapter;
     protected ArrayAdapter<CharSequence> flagAdapter;
     protected ArrayAdapter<CharSequence> distanceAdapter;
@@ -27,7 +32,22 @@ AdapterView.OnItemSelectedListener {
 	    return true;
 	}
 	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.options:
+	            //Start OptionsActivity 
+	        	Intent intent = new Intent();
+	            intent.setClass(AppActivity.this, OptionsActivity.class);
+	            startActivityForResult(intent, 0);
+				break;
+	        default:
+	        	break;
+	    }
+	    return false;
+	}
 	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
