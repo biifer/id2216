@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.*;
 import android.view.View.OnClickListener;
 
@@ -52,8 +53,8 @@ AdapterView.OnItemSelectedListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.normal);
-
 		
 		Spinner radiusSpinner = (Spinner) findViewById(R.id.spinner1);
 		Spinner flagSpinner = (Spinner) findViewById(R.id.spinner3);
