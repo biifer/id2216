@@ -51,7 +51,6 @@ public class PreviewActivity extends MapActivity {
         start.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				
 				// TODO Auto-generated method stub
 				View buttons = findViewById(R.id.relativeLayout2);
 				buttons.setVisibility(RelativeLayout.GONE);
