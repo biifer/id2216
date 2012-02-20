@@ -15,9 +15,6 @@ import android.view.View.OnClickListener;
 public class AppActivity extends Activity implements
 /** Called when the activity is first created. */
 AdapterView.OnItemSelectedListener {
-	String[] items = { "1km", "2km", "3km", "infinity" };
-		
-	
 	
     protected ArrayAdapter<CharSequence> radiusAdapter;
     protected ArrayAdapter<CharSequence> flagAdapter;
@@ -79,7 +76,6 @@ AdapterView.OnItemSelectedListener {
 		radiusSpinner.setAdapter(this.radiusAdapter);
 		flagSpinner.setAdapter(this.flagAdapter);
 		distanceSpinner.setAdapter(this.distanceAdapter);
-		//setContentView(R.layout.normal);
 
 		Button generateMap = (Button) findViewById(R.id.generate_map_button);
 		generateMap.setOnClickListener(new OnClickListener() {
