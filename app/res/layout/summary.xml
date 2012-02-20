@@ -13,16 +13,13 @@
         android:textSize="24dp" />
 
     <TextView
-        android:id="@+id/summary_content"
+        android:id="@+id/total_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextView1"
-        android:text="Total time: 
-Total distance: 
-Average speed: 
-No of flags: "
+        android:text="Total time: "
         android:textSize="16dp" />
-
+
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
@@ -54,7 +51,7 @@ No of flags: "
         android:layout_height="280dp"
         android:layout_above="@+id/relativeLayout1"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/summary_content" >
+        android:layout_below="@+id/No_of_flags" >
 
         <com.google.android.maps.MapView
             android:id="@+id/mapview_summary"
@@ -64,5 +61,32 @@ No of flags: "
             android:clickable="true" >
         </com.google.android.maps.MapView>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/total_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/total_time"
+        android:textSize="16dp"
+        android:text="Total Distance: " />
+
+    <TextView
+        android:id="@+id/average_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/total_distance"
+        android:textSize="16dp"
+        android:text="Average speed: " />
+
+    <TextView
+        android:id="@+id/No_of_flags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/average_speed"
+        android:textSize="16dp"
+        android:text="No of flags: " />
 
 </RelativeLayout>
