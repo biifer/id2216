@@ -3,6 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="61dp"
+        android:layout_marginTop="120dp"
+        android:inputType="textMultiLine" 
+        android:text="Some text will be displayed here!">
+
+        <requestFocus />
+    </EditText>
+
 
 </RelativeLayout>
