@@ -2,7 +2,9 @@
 <resources>
     <color name="green">#00ff00</color>
     <color name="green_grad">#00AA00</color>
+    <color name="green_faded">#9900FF00</color>
+    <color name="green_darker">#FF22FF22</color>
     <color name="black">#000000</color>
-    <color name="orange">#FFCC66</color>
-    
+    <color name="orange">#FF7F00</color>
+    <color name="orange_faded">#FFA500</color>
 </resources>
