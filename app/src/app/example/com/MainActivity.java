@@ -3,6 +3,7 @@ package app.example.com;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,12 +12,16 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends MapActivity {
@@ -29,6 +34,54 @@ public class MainActivity extends MapActivity {
 	LinearLayout linerarLayout;
 	MapView mapView;
 
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu, menu);
+	    return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Context myContext = this; 
+	    switch (item.getItemId()) {
+	        case R.id.about:
+	        	 final Dialog dialog = new Dialog(myContext);
+	                dialog.setContentView(R.layout.about);
+	                dialog.setTitle("About");
+	                dialog.setCancelable(true);
+
+	                TextView text = (TextView) dialog.findViewById(R.id.aboutText);
+	                text.setText("I belive I can fly v1.02");  
+	                dialog.show();
+				break;
+	        case R.id.help:
+	        	 final Dialog dialog2 = new Dialog(myContext);
+	                dialog2.setContentView(R.layout.help);
+	                dialog2.setTitle("Help");
+	                dialog2.setCancelable(true);
+
+	                text = (TextView) dialog2.findViewById(R.id.Text);
+	                text.setText("Run faggot run!");
+
+	                Button button = (Button) dialog2.findViewById(R.id.cancel);
+	                button.setOnClickListener(new OnClickListener() {
+	                	
+	                public void onClick(View v) {
+	                        dialog2.dismiss();
+	                    }
+	                });
+	                dialog2.show();
+	                break;
+	        case	R.id.newG:
+					Intent myIntent = new Intent(this, AppActivity.class);
+					this.startActivity(myIntent);	
+	        	
+	        default:
+	        	break;
+	    }
+	    return false;
+	}
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
