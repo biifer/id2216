@@ -55,18 +55,22 @@ AdapterView.OnItemSelectedListener {
     protected ArrayAdapter<CharSequence> flagAdapter;
     protected ArrayAdapter<CharSequence> distanceAdapter;
 
-    private static final String PREFS_NAME = "PrefsFile";	
-	
-    boolean option1;
-    boolean option2;
-    boolean option3;
-
+    public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, distance, radius, nameOfUploader 
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
 	
 	private void saveIntToMyPrefs(String key, int value) {
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-		SharedPreferences.Editor editor = settings.edit();
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		editor = settings.edit();
 		editor.putInt(key, value);
 		editor.commit();
+	}
+	
+	private int loadIntFromMyPrefs(String key) {
+		int defValue = -1;
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		int value = settings.getInt(key, defValue);
+		return value;
 	}
 	
 	private void saveStringToMyPrefs(String key, String value) {
@@ -76,12 +80,25 @@ AdapterView.OnItemSelectedListener {
 	    editor.commit();
 	}
 	
-	private void loadFromMyPrefs() {
+	private String loadStringFromMyPrefs(String key) {
+		String defValue = "-1";
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		String value = settings.getString(key, defValue);
+		return value;	
+	}
+	
+	private void saveBooleanToMyPrefs(String key, Boolean value) {
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		editor = settings.edit();
+		editor.putBoolean(key, value);
+		editor.commit();
+	}
+	
+	private boolean loadBooleanFromMyPrefs(String key) {
 		boolean defValue = false;
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-		option1 = settings.getBoolean("settings_Option1", defValue);
-		option2 = settings.getBoolean("settings_option2", defValue);
-		option3 = settings.getBoolean("settings_option3", defValue);
+		boolean value = settings.getBoolean(key, defValue);
+		return value;
 	}
 
 	@Override

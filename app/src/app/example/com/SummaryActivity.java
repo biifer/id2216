@@ -14,8 +14,7 @@ import android.widget.Toast;
 
 public class SummaryActivity extends MapActivity {
 
-	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, 
-	
+	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, distance, radius, nameOfUploader 
 	SharedPreferences settings;
 	SharedPreferences.Editor editor;
 	
@@ -26,23 +25,46 @@ public class SummaryActivity extends MapActivity {
 	int numberOfFlags;
 	
 	
-	public void saveToMyPrefs() {
+	private void saveIntToMyPrefs(String key, int value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		editor = settings.edit();
+		editor.putInt(key, value);
+		editor.commit();
 	}
 	
-	public String loadStringFromMyPrefs() {
-		String defValue = "fel";
-		settings = getSharedPreferences(PREFS_NAME, 0);
-		String hej = settings.getString("radius", defValue);
-	return hej;
-	}
-	
-	public int loadIntFromMyPrefs() {
+	private int loadIntFromMyPrefs(String key) {
 		int defValue = -1;
 		settings = getSharedPreferences(PREFS_NAME, 0);
-		int hej = settings.getInt("radius", defValue);
-	return hej;
+		int value = settings.getInt(key, defValue);
+		return value;
+	}
+	
+	private void saveStringToMyPrefs(String key, String value) {
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+	    SharedPreferences.Editor editor = settings.edit();
+	    editor.putString(key, value);
+	    editor.commit();
+	}
+	
+	private String loadStringFromMyPrefs(String key) {
+		String defValue = "-1";
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		String value = settings.getString(key, defValue);
+		return value;	
+	}
+	
+	private void saveBooleanToMyPrefs(String key, Boolean value) {
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		editor = settings.edit();
+		editor.putBoolean(key, value);
+		editor.commit();
+	}
+	
+	private boolean loadBooleanFromMyPrefs(String key) {
+		boolean defValue = false;
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		boolean value = settings.getBoolean(key, defValue);
+		return value;
 	}
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +89,7 @@ public class SummaryActivity extends MapActivity {
 				Context context = getApplicationContext();
 				
 				
-				String i = loadStringFromMyPrefs();
+				String i = loadStringFromMyPrefs("radius");
 				CharSequence text = i;
 				int duration = Toast.LENGTH_LONG;
 				Toast toast = Toast.makeText(context, text, duration);
