@@ -10,10 +10,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -32,6 +34,10 @@ public class MainActivity extends MapActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
+		
+		Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
+		cm.setBase(SystemClock.elapsedRealtime());
+		cm.start();
 		
 		mapView = (MapView) findViewById(R.id.mapviewMain);
 		mapView.setBuiltInZoomControls(false);
