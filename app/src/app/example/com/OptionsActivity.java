@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 public class OptionsActivity extends Activity{
 
-    private static final String PREFS_NAME = "PrefsFile";	
+	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, distance, radius, nameOfUploader 
     SharedPreferences settings;
     SharedPreferences.Editor editor;
 	

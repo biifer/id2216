@@ -23,7 +23,7 @@ AdapterView.OnItemSelectedListener {
     protected ArrayAdapter<CharSequence> flagAdapter;
     protected ArrayAdapter<CharSequence> distanceAdapter;
 
-    private static final String PREFS_NAME = "PrefsFile";	
+    public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, distance, radius, nameOfUploader 
     SharedPreferences settings;
     SharedPreferences.Editor editor;
 	
