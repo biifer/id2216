@@ -40,8 +40,8 @@ public class SummaryActivity extends MapActivity {
 	}
 	
 	private void saveStringToMyPrefs(String key, String value) {
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-	    SharedPreferences.Editor editor = settings.edit();
+		settings = getSharedPreferences(PREFS_NAME, 0);
+	    editor = settings.edit();
 	    editor.putString(key, value);
 	    editor.commit();
 	}
@@ -62,7 +62,7 @@ public class SummaryActivity extends MapActivity {
 	
 	private boolean loadBooleanFromMyPrefs(String key) {
 		boolean defValue = false;
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		settings = getSharedPreferences(PREFS_NAME, 0);
 		boolean value = settings.getBoolean(key, defValue);
 		return value;
 	}
@@ -88,9 +88,11 @@ public class SummaryActivity extends MapActivity {
 				// TODO Auto-generated method stub
 				Context context = getApplicationContext();
 				
-				
-				String i = loadStringFromMyPrefs("radius");
-				CharSequence text = i;
+				String distance = loadStringFromMyPrefs("distance");
+				String flags = loadStringFromMyPrefs("flags");
+				String radius = loadStringFromMyPrefs("radius");
+				String toastText = distance + radius + flags;
+				CharSequence text = toastText ;
 				int duration = Toast.LENGTH_LONG;
 				Toast toast = Toast.makeText(context, text, duration);
 				toast.show();

@@ -42,8 +42,8 @@ AdapterView.OnItemSelectedListener {
 	}
 	
 	private void saveStringToMyPrefs(String key, String value) {
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-	    SharedPreferences.Editor editor = settings.edit();
+		settings = getSharedPreferences(PREFS_NAME, 0);
+	    editor = settings.edit();
 	    editor.putString(key, value);
 	    editor.commit();
 	}
@@ -64,7 +64,7 @@ AdapterView.OnItemSelectedListener {
 	
 	private boolean loadBooleanFromMyPrefs(String key) {
 		boolean defValue = false;
-		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		settings = getSharedPreferences(PREFS_NAME, 0);
 		boolean value = settings.getBoolean(key, defValue);
 		return value;
 	}
@@ -106,16 +106,17 @@ AdapterView.OnItemSelectedListener {
 				v.getContext().startActivity(myIntent);
 			}
 		});
+		
 	}
 
 	public void onItemSelected(AdapterView<?> parent, View arg1, int pos,
 			long arg3) {
 		
 	//	String selected = parent.getItemAtPosition(pos).toString();
-	/*	Object id = parent.getAdapter();
+		Object id = parent.getAdapter();
 		if( id == radiusAdapter) {
 			String selected = parent.getItemAtPosition(pos).toString();
-			saveStringToMyPrefs("test2", selected);
+			saveStringToMyPrefs("radius", selected);
 		}else if (id == flagAdapter) {
 			String selected = parent.getItemAtPosition(pos).toString();
 			saveStringToMyPrefs("flags", selected);
@@ -123,7 +124,7 @@ AdapterView.OnItemSelectedListener {
 			String selected = parent.getItemAtPosition(pos).toString();
 			saveStringToMyPrefs("distance", selected);
 		}
-*/
+
 		
 	}
 
