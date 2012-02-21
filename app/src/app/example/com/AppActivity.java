@@ -18,7 +18,49 @@ public class AppActivity extends Activity implements
 /** Called when the activity is first created. */
 AdapterView.OnItemSelectedListener {
 	
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu, menu);
+	    return true;
+	}
 	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Context myContext = this; 
+	    switch (item.getItemId()) {
+	        case R.id.about:
+	        	 final Dialog dialog = new Dialog(myContext);
+	                dialog.setContentView(R.layout.about);
+	                dialog.setTitle("About");
+	                dialog.setCancelable(true);
+
+	                TextView text = (TextView) dialog.findViewById(R.id.aboutText);
+	                text.setText("I belive I can fly v1.02");
+
+	              
+	                dialog.show();
+				break;
+	        case R.id.help:
+	        	 final Dialog dialog2 = new Dialog(myContext);
+	                dialog2.setContentView(R.layout.help);
+	                dialog2.setTitle("Help");
+	                dialog2.setCancelable(true);
+
+	                text = (TextView) dialog2.findViewById(R.id.Text);
+	                text.setText("This is the menu, why would you need help?");
+
+	                Button button = (Button) dialog2.findViewById(R.id.cancel);
+	                button.setOnClickListener(new OnClickListener() {
+	                	
+	                public void onClick(View v) {
+	                        dialog2.dismiss();
+	                    }
+	                });
+	                dialog2.show();
+	        default:
+	        	break;
+	    }
+	    return false;
+	}
     protected ArrayAdapter<CharSequence> radiusAdapter;
     protected ArrayAdapter<CharSequence> flagAdapter;
     protected ArrayAdapter<CharSequence> distanceAdapter;

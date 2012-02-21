@@ -6,5 +6,6 @@
          />
     <item android:id="@+id/help"
           android:title="@string/help" 
-          android:icon="@drawable/magnifying_glass_48"/> 
+          android:icon="@drawable/magnifying_glass_48"/>
+    <item android:id="@+id/newG" android:title="@string/newG" android:icon="@drawable/games_48"></item> 
 </menu> 

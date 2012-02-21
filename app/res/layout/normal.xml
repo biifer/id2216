@@ -10,64 +10,59 @@
         android:layout_height="match_parent"
         android:layout_weight="0.33" >
 
-        <Spinner
-            android:id="@+id/radiusSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:prompt="@string/distance" />
-
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
             android:text="@string/normal_mode"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/spinner2"
-            android:layout_alignParentLeft="true"
-            android:text="Set the max distance you want to run." />
+            android:layout_marginTop="90dp"
+            android:layout_centerHorizontal="true"
+            android:text="Set max range of a spawning flag" />
 
         <Spinner
-            android:id="@+id/flagSpinner"
-            android:layout_width="wrap_content"
+            android:id="@+id/radiusSpinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:prompt="@string/flags" />
+            android:layout_below="@+id/textView2"
+            android:prompt="@string/distance" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/spinner3"
-            android:layout_alignParentLeft="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/radiusSpinner"
             android:text="Set number of flags to be spawn." />
+
+        <Spinner
+            android:id="@+id/flagSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:prompt="@string/flags" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/flagSpinner"
+            android:text="Set the max distance you want to run." />
 
         <Spinner
             android:id="@+id/distanceSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView3"
-            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView4"
             android:prompt="@string/radius" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/spinner1"
-            android:layout_alignParentLeft="true"
-            android:text="Set max range of a spawning flag" />
 
         <Button
             android:id="@+id/generate_map_button"
@@ -78,9 +73,8 @@
             android:layout_marginBottom="40dp"
             android:background="@drawable/custom_button"
             android:text="Generate Map"
-            android:textStyle="bold"
-            android:textSize="18dp" />
-
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </LinearLayout>

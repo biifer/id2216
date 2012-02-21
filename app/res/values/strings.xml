@@ -11,8 +11,9 @@
     <string name="summary">Summary</string>
     <string name="start">Start!</string>
     <string name="new_route">New route</string>
-    <string name="options">Options</string>
+    <string name="about">About</string>
     <string name="help">Help</string>
+    <string name="newG">New Game</string>
     <string name="distance_to_p">Distance to nearest point: </string>
     <string name="speed">Speed: </string>
     <string name="total_distance">Total distance: </string>
