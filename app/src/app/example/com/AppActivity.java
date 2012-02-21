@@ -27,25 +27,35 @@ AdapterView.OnItemSelectedListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Context myContext = this; 
 	    switch (item.getItemId()) {
-	        case R.id.options:
-				break;
-	        case R.id.help:
+	        case R.id.about:
 	        	 final Dialog dialog = new Dialog(myContext);
 	                dialog.setContentView(R.layout.help);
-	                dialog.setTitle("Help");
+	                dialog.setTitle("About");
 	                dialog.setCancelable(true);
 
 	                TextView text = (TextView) dialog.findViewById(R.id.Text);
-	                text.setText("Apa");
+	                text.setText("I belive I can fly v1.02");
 
-	                Button button = (Button) dialog.findViewById(R.id.cancel);
+	              
+	                dialog.show();
+				break;
+	        case R.id.help:
+	        	 final Dialog dialog2 = new Dialog(myContext);
+	                dialog2.setContentView(R.layout.about);
+	                dialog2.setTitle("Help");
+	                dialog2.setCancelable(true);
+
+	                text = (TextView) dialog2.findViewById(R.id.Text);
+	                text.setText("This is the menu, why would you need help?");
+
+	                Button button = (Button) dialog2.findViewById(R.id.cancel);
 	                button.setOnClickListener(new OnClickListener() {
 	                	
 	                public void onClick(View v) {
-	                        dialog.dismiss();
+	                        dialog2.dismiss();
 	                    }
 	                });
-	                dialog.show();
+	                dialog2.show();
 	        default:
 	        	break;
 	    }

@@ -23,7 +23,7 @@ public class MenuControl extends Activity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Context myContext = this; 
 	    switch (item.getItemId()) {
-	        case R.id.options:
+	        case R.id.about:
 				break;
 	        case R.id.help:
 	        	 final Dialog dialog = new Dialog(myContext);
