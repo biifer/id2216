@@ -18,6 +18,7 @@ public class AppActivity extends Activity implements
 /** Called when the activity is first created. */
 AdapterView.OnItemSelectedListener {
 	
+	
     protected ArrayAdapter<CharSequence> radiusAdapter;
     protected ArrayAdapter<CharSequence> flagAdapter;
     protected ArrayAdapter<CharSequence> distanceAdapter;
@@ -27,46 +28,7 @@ AdapterView.OnItemSelectedListener {
     boolean option1;
     boolean option2;
     boolean option3;
-    
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.menu, menu);
-	    return true;
-	}
-	
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-		Intent intent = new Intent();
-	    switch (item.getItemId()) {
-	        case R.id.options:
-	            //Start OptionsActivity 
-	            intent.setClass(AppActivity.this, OptionsActivity.class);
-	          //  startActivityForResult(intent, 0);
-	            startActivity(intent);
-				break;
-	        case R.id.help:
-	        	 final Dialog dialog = new Dialog(AppActivity.this);
-	                dialog.setContentView(R.layout.help);
-	                dialog.setTitle("Help");
-	                dialog.setCancelable(true);
 
-	                TextView text = (TextView) dialog.findViewById(R.id.Text);
-	                text.setText("Apa");
-
-	                Button button = (Button) dialog.findViewById(R.id.cancel);
-	                button.setOnClickListener(new OnClickListener() {
-	                	
-	                public void onClick(View v) {
-	                        dialog.dismiss();
-	                    }
-	                });
-	                dialog.show();
-	        default:
-	        	break;
-	    }
-	    return false;
-	}
 	
 	private void saveIntToMyPrefs(String key, int value) {
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -95,7 +57,6 @@ AdapterView.OnItemSelectedListener {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.normal);
-		
 		Spinner radiusSpinner = (Spinner) findViewById(R.id.radiusSpinner);
 		Spinner flagSpinner = (Spinner) findViewById(R.id.flagSpinner);
 		Spinner distanceSpinner = (Spinner) findViewById(R.id.distanceSpinner);
