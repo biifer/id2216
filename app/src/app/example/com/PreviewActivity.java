@@ -53,7 +53,7 @@ public class PreviewActivity extends MapActivity {
 	                dialog.setTitle("About");
 	                dialog.setCancelable(true);
 
-	                TextView text = (TextView) dialog.findViewById(R.id.Text);
+	                TextView text = (TextView) dialog.findViewById(R.id.aboutText);
 	                text.setText("I belive I can fly v1.02");
 
 	              

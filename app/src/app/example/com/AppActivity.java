@@ -29,11 +29,11 @@ AdapterView.OnItemSelectedListener {
 	    switch (item.getItemId()) {
 	        case R.id.about:
 	        	 final Dialog dialog = new Dialog(myContext);
-	                dialog.setContentView(R.layout.help);
+	                dialog.setContentView(R.layout.about);
 	                dialog.setTitle("About");
 	                dialog.setCancelable(true);
 
-	                TextView text = (TextView) dialog.findViewById(R.id.Text);
+	                TextView text = (TextView) dialog.findViewById(R.id.aboutText);
 	                text.setText("I belive I can fly v1.02");
 
 	              
@@ -41,7 +41,7 @@ AdapterView.OnItemSelectedListener {
 				break;
 	        case R.id.help:
 	        	 final Dialog dialog2 = new Dialog(myContext);
-	                dialog2.setContentView(R.layout.about);
+	                dialog2.setContentView(R.layout.help);
 	                dialog2.setTitle("Help");
 	                dialog2.setCancelable(true);
 
