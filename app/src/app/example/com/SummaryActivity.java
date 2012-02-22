@@ -91,7 +91,7 @@ public class SummaryActivity extends MapActivity {
 				String distance = loadStringFromMyPrefs("distance");
 				String flags = loadStringFromMyPrefs("flags");
 				String radius = loadStringFromMyPrefs("radius");
-				String toastText = distance + radius + flags;
+				String toastText = distance + "\n" + radius + "\n" + flags;
 				CharSequence text = toastText ;
 				int duration = Toast.LENGTH_LONG;
 				Toast toast = Toast.makeText(context, text, duration);
