@@ -102,11 +102,9 @@ public class PreviewActivity extends MapActivity {
         {
             super.draw(canvas, mapView, shadow);                   
  
-            //---translate the GeoPoint to screen pixels---
             Point screenPts = new Point();
             mapView.getProjection().toPixels(p, screenPts);
  
-            //---add the marker---
             Bitmap bmp = BitmapFactory.decodeResource(
                 getResources(), R.drawable.map_pin_48);            
             canvas.drawBitmap(bmp, screenPts.x, screenPts.y-50, null);         
@@ -114,6 +112,7 @@ public class PreviewActivity extends MapActivity {
         }
     } 
 	   MapController mc;
+	   MyLocationOverlay myLocationOverlay;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -123,9 +122,12 @@ public class PreviewActivity extends MapActivity {
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 		mc = mapView.getController();
-        String coordinates[] = {"1.352566007", "103.78921587"};
-        double lat = Double.parseDouble(coordinates[0]);
-        double lng = Double.parseDouble(coordinates[1]);
+		
+	    myLocationOverlay = new MyLocationOverlay(this, mapView);
+	    mapView.getOverlays().add(myLocationOverlay);
+	    
+        double lat = 59.405414;
+        double lng = 17.944499;
  
         p = new GeoPoint(
             (int) (lat * 1E6), 
@@ -134,7 +136,6 @@ public class PreviewActivity extends MapActivity {
 		mc.animateTo(p);
         mc.setZoom(17); 
  
-        //---Add a location marker---
         MapOverlay mapOverlay = new MapOverlay();
         List<Overlay> listOfOverlays = mapView.getOverlays();
         listOfOverlays.clear();
