@@ -76,6 +76,11 @@ public class PreviewActivity extends MapActivity {
 	                    }
 	                });
 	                dialog2.show();
+	                break;
+	   	        case	R.id.newG:
+	   					Intent myIntent = new Intent(this, AppActivity.class);
+	   					this.startActivity(myIntent);	
+	   	        	break;
 	        default:
 	        	break;
 	    }
