@@ -34,10 +34,10 @@ import com.google.android.maps.*;
 public class PreviewActivity extends MapActivity {
 
 	
-	private LocationManager lm;
-	private LocationListener locationListener;
-	LinearLayout linerarLayout;
+
 	MapView mapView;
+	MapController mc;
+	MyLocationOverlay myLocationOverlay;
 	
 	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, 
 
@@ -93,26 +93,7 @@ public class PreviewActivity extends MapActivity {
 		//TODO lägga in alla parametrar som ska sparas till summary, koordinater av flaggor: hur lösa det?
 		
 	}
-	GeoPoint p;
-	class MapOverlay extends com.google.android.maps.Overlay
-    {
-        @Override
-        public boolean draw(Canvas canvas, MapView mapView, 
-        boolean shadow, long when) 
-        {
-            super.draw(canvas, mapView, shadow);                   
- 
-            Point screenPts = new Point();
-            mapView.getProjection().toPixels(p, screenPts);
- 
-            Bitmap bmp = BitmapFactory.decodeResource(
-                getResources(), R.drawable.map_pin_48);            
-            canvas.drawBitmap(bmp, screenPts.x, screenPts.y-50, null);         
-            return true;
-        }
-    } 
-	   MapController mc;
-	   MyLocationOverlay myLocationOverlay;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -125,21 +106,8 @@ public class PreviewActivity extends MapActivity {
 		
 	    myLocationOverlay = new MyLocationOverlay(this, mapView);
 	    mapView.getOverlays().add(myLocationOverlay);
-	    
-        double lat = 59.405414;
-        double lng = 17.944499;
- 
-        p = new GeoPoint(
-            (int) (lat * 1E6), 
-            (int) (lng * 1E6));
-		
-		mc.animateTo(p);
-        mc.setZoom(17); 
- 
-        MapOverlay mapOverlay = new MapOverlay();
-        List<Overlay> listOfOverlays = mapView.getOverlays();
-        listOfOverlays.clear();
-        listOfOverlays.add(mapOverlay);        
+	    mapView.postInvalidate();
+	    mc.setZoom(17);
  
 		Button start = (Button)findViewById(R.id.start_button);
         start.setOnClickListener(new OnClickListener() {
@@ -161,39 +129,19 @@ public class PreviewActivity extends MapActivity {
 			}
 		});
          
-        
-        
-        
-		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		locationListener = new LocationListener() {
-
-			public void onStatusChanged(String provider, int status,
-					Bundle extras) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onProviderEnabled(String provider) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onProviderDisabled(String provider) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void onLocationChanged(Location location) {
-				// TODO Auto-generated method stub
-
-			}
-		};
-
-		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				locationListener);
+       
 	}
+	protected void onResume() {
+    super.onResume();
+	    myLocationOverlay.enableMyLocation();
 
+	}
+	@Override
+	protected void onPause() {
+	    super.onPause();
+	    myLocationOverlay.disableMyLocation();
+	}
+	
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
