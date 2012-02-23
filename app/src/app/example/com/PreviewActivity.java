@@ -97,6 +97,7 @@ public class PreviewActivity extends MapActivity {
 		
 	}
 	GeoPoint p;
+	List<Overlay> mapOverlays;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -106,24 +107,12 @@ public class PreviewActivity extends MapActivity {
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 		mc = mapView.getController();
-		List<Overlay> mapOverlays = mapView.getOverlays();
-		
-		myLocationOverlay = new MyLocationOverlay(this, mapView);
-		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
-		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
-		
-		Random generatorCord = new Random();
-		for(int i=0;i<10;i++){
-		double lo = generatorCord.nextDouble()*100;
-		double la = generatorCord.nextDouble()*100;
-		GeoPoint point = new GeoPoint((int)(lo*1E6),(int)(la*1E6));
-		OverlayItem overlayitem = new OverlayItem(point, null, null);
-		itemizedoverlay.addOverlay(overlayitem);
-		}
-	    mapOverlays.add(myLocationOverlay);
-	    mapOverlays.add(itemizedoverlay);
-	    
+		mapOverlays = mapView.getOverlays();
+		myLocationOverlay = new MyLocationOverlay(this, mapView);	
+	    mapOverlays.add(myLocationOverlay);   
 	    mc.setZoom(5);
+	    onFix();
+	    
 	    mapView.postInvalidate();
  
 		Button start = (Button)findViewById(R.id.start_button);
@@ -148,7 +137,31 @@ public class PreviewActivity extends MapActivity {
          
        
 	}
+	protected void markers(){
+		Random generatorCord = new Random();
+		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
+		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
+		
+		 for(int i=0;i<10;i++){
+				int lo = p.getLongitudeE6()+(generatorCord.nextInt(2000)-1000);
+				int la = p.getLatitudeE6()+(generatorCord.nextInt(2000)-1000);
+				GeoPoint point = new GeoPoint(la,lo);
+;				OverlayItem overlayitem = new OverlayItem(point, null, null);
+				itemizedoverlay.addOverlay(overlayitem);
+				};
+				mapOverlays.add(itemizedoverlay);
+	}
+	 protected void onFix(){
+		 myLocationOverlay.runOnFirstFix(new Runnable() { 
+		    	public void run() {
+		    		p = myLocationOverlay.getMyLocation();
+		        mc.animateTo(p);
+		        mc.setZoom(17);
+		        markers();
+		    	}
+		    	});
 
+	 }
 	protected void onResume() {
     super.onResume();
 	    myLocationOverlay.enableMyLocation();
