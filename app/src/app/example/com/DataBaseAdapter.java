@@ -81,7 +81,7 @@ public class DataBaseAdapter {
 	}
 
 	//Lägger till en route i databasen
-	public long insertTitle(String uploader, String routeName, String distance, String radius, String flags, String totalTime, String averageSpeed)
+	public long insertRoute(String uploader, String routeName, String distance, String radius, String flags, String totalTime, String averageSpeed)
 	{
 	ContentValues initialValues = new ContentValues();
 	initialValues.put(KEY_UPLOADER, uploader);
@@ -95,14 +95,14 @@ public class DataBaseAdapter {
 	}
 
 	//Tar bort en viss route
-	public boolean deleteTitle(long rowId)
+	public boolean deleteRoute(long rowId)
 	{
 	return db.delete(DATABASE_TABLE, KEY_ROWID +
 	"=" + rowId, null) > 0;
 	}
 
 	//Hämtar alla routes
-	public Cursor getAllTitles()
+	public Cursor getAllRoutes()
 	{
 	return db.query(DATABASE_TABLE, new String[] {
 	KEY_ROWID,
