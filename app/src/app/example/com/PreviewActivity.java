@@ -36,8 +36,8 @@ import com.google.android.maps.*;
 
 public class PreviewActivity extends MapActivity {
 
-	
-
+	int flags;
+	int radius;
 	MapView mapView;
 	MapController mc;
 	MyLocationOverlay myLocationOverlay;
@@ -139,10 +139,10 @@ public class PreviewActivity extends MapActivity {
 		Random generatorCord = new Random();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
-		
-		 for(int i=0;i<5;i++){
-				int lo = p.getLongitudeE6()+(generatorCord.nextInt(2000)-1000);
-				int la = p.getLatitudeE6()+(generatorCord.nextInt(2000)-1000);
+		radius = 2000;
+		 for(flags=0;flags<5;flags++){
+				int lo = p.getLongitudeE6()+(generatorCord.nextInt(radius)-1000);
+				int la = p.getLatitudeE6()+(generatorCord.nextInt(radius)-1000);
 				GeoPoint point = new GeoPoint(la,lo);
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
