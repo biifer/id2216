@@ -109,7 +109,6 @@ public class PreviewActivity extends MapActivity {
 		mc = mapView.getController();
 		mapOverlays = mapView.getOverlays();
 		myLocationOverlay = new MyLocationOverlay(this, mapView);	
-	    mapOverlays.add(myLocationOverlay);   
 	    mc.setZoom(5);
 	    onFix();
 	    
@@ -129,9 +128,7 @@ public class PreviewActivity extends MapActivity {
         newRoute.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent myIntent = new Intent(v.getContext(), AppActivity.class);
-				v.getContext().startActivity(myIntent);
+				markers();
 			}
 		});
          
@@ -142,14 +139,17 @@ public class PreviewActivity extends MapActivity {
 		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
 		
-		 for(int i=0;i<10;i++){
+		 for(int i=0;i<5;i++){
 				int lo = p.getLongitudeE6()+(generatorCord.nextInt(2000)-1000);
 				int la = p.getLatitudeE6()+(generatorCord.nextInt(2000)-1000);
 				GeoPoint point = new GeoPoint(la,lo);
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
 				};
+				mapOverlays.clear();
+				mapOverlays.add(myLocationOverlay); 
 				mapOverlays.add(itemizedoverlay);
+				mapView.postInvalidate();
 	}
 	 protected void onFix(){
 		 myLocationOverlay.runOnFirstFix(new Runnable() { 
