@@ -146,7 +146,7 @@ public class PreviewActivity extends MapActivity {
 				int lo = p.getLongitudeE6()+(generatorCord.nextInt(2000)-1000);
 				int la = p.getLatitudeE6()+(generatorCord.nextInt(2000)-1000);
 				GeoPoint point = new GeoPoint(la,lo);
-;				OverlayItem overlayitem = new OverlayItem(point, null, null);
+				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
 				};
 				mapOverlays.add(itemizedoverlay);
