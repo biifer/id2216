@@ -135,6 +135,7 @@ public class PreviewActivity extends MapActivity {
        
 	}
 	protected void markers(){
+		if(p != null){
 		Random generatorCord = new Random();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
@@ -150,6 +151,7 @@ public class PreviewActivity extends MapActivity {
 				mapOverlays.add(myLocationOverlay); 
 				mapOverlays.add(itemizedoverlay);
 				mapView.postInvalidate();
+		}
 	}
 	 protected void onFix(){
 		 myLocationOverlay.runOnFirstFix(new Runnable() { 
