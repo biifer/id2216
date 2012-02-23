@@ -2,6 +2,7 @@ package app.example.com;
 
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -29,6 +30,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.*;
+import android.graphics.drawable.Drawable;
+
 import com.google.android.maps.*;
 
 public class PreviewActivity extends MapActivity {
@@ -93,7 +96,7 @@ public class PreviewActivity extends MapActivity {
 		//TODO lägga in alla parametrar som ska sparas till summary, koordinater av flaggor: hur lösa det?
 		
 	}
-	
+	GeoPoint p;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -103,11 +106,25 @@ public class PreviewActivity extends MapActivity {
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 		mc = mapView.getController();
+		List<Overlay> mapOverlays = mapView.getOverlays();
 		
-	    myLocationOverlay = new MyLocationOverlay(this, mapView);
-	    mapView.getOverlays().add(myLocationOverlay);
+		myLocationOverlay = new MyLocationOverlay(this, mapView);
+		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
+		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
+		
+		Random generatorCord = new Random();
+		for(int i=0;i<10;i++){
+		double lo = generatorCord.nextDouble()*100;
+		double la = generatorCord.nextDouble()*100;
+		GeoPoint point = new GeoPoint((int)(lo*1E6),(int)(la*1E6));
+		OverlayItem overlayitem = new OverlayItem(point, null, null);
+		itemizedoverlay.addOverlay(overlayitem);
+		}
+	    mapOverlays.add(myLocationOverlay);
+	    mapOverlays.add(itemizedoverlay);
+	    
+	    mc.setZoom(5);
 	    mapView.postInvalidate();
-	    mc.setZoom(17);
  
 		Button start = (Button)findViewById(R.id.start_button);
         start.setOnClickListener(new OnClickListener() {
@@ -131,6 +148,7 @@ public class PreviewActivity extends MapActivity {
          
        
 	}
+
 	protected void onResume() {
     super.onResume();
 	    myLocationOverlay.enableMyLocation();
