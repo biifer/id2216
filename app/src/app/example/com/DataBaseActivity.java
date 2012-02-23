@@ -16,9 +16,7 @@ public class DataBaseActivity extends Activity {
         System.out.println("bool1");
         insertRoute();
         displayAllRoutes();
-        //update();
-        //dis(3);
-        //del(5);
+        
     }
 
     private void updateRoute(){ 
