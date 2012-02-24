@@ -184,7 +184,6 @@ public class PreviewActivity extends MapActivity {
 				itemizedoverlay.addOverlay(overlayitem);
 			};
 			mapOverlays.clear();
-			itemizedoverlay.clear();
 			mapOverlays.add(myLocationOverlay);
 			mapOverlays.add(itemizedoverlay);
 			mapView.postInvalidate();
