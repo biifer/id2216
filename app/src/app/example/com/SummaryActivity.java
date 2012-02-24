@@ -92,7 +92,8 @@ public class SummaryActivity extends MapActivity {
 		
 		String flags = loadStringFromMyPrefs("flags");
 		TextView flag_text = (TextView) findViewById(R.id.No_of_flags);
-		flag_text.setText("No of flags: " + flags);
+		String buff[] = flags.split(" ");
+		flag_text.setText("No of flags: " + buff[1]);
 		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
