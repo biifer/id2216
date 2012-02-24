@@ -45,7 +45,6 @@ public class MainActivity extends MapActivity {
 	LinearLayout linerarLayout;
 	MapView mapView;
 	MapController mController;
-	MyLocationOverlay myLocationOverlay;
 	GeoPoint p;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
