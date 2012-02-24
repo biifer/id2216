@@ -34,8 +34,7 @@
             android:background="@drawable/grey_button"
             android:text="@string/new_route" />
     </RelativeLayout>
-	
-    
+
     <RelativeLayout
         android:id="@+id/mapLayout"
         android:layout_width="wrap_content"
@@ -51,8 +50,13 @@
             android:layout_height="fill_parent"
             android:apiKey="01OR_IsAMACZCH-mysHjZxDFqplmDnq8x__4FQw"
             android:clickable="true" />
-	
+        <!--
+            emulator-key
+            android:apiKey="01OR_IsAMACZCH-mysHjZxDFqplmDnq8x__4FQw"
+            
+            private-key
+            android:apiKey="01OR_IsAMACagn-B9fS7Hd-vKsQvdSsm9zYLv7Q"
+        -->
     </RelativeLayout>
-
 
 </RelativeLayout>
