@@ -51,7 +51,7 @@ public class PreviewActivity extends MapActivity {
 	GeoPoint[] gP;
 	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
 	MapView mapView;
-	MapController mc;
+	MapController mController;
 	MyLocationOverlay myLocationOverlay;
 
 	public static final String PREFS_NAME = "PrefsFile"; // I filen sparar vi:
@@ -108,8 +108,8 @@ public class PreviewActivity extends MapActivity {
 	}
 
 	private void saveToMyPrefs() {
-		// TODO lägga in alla parametrar som ska sparas till summary,
-		// koordinater av flaggor: hur lösa det?
+		// TODO lï¿½gga in alla parametrar som ska sparas till summary,
+		// koordinater av flaggor: hur lï¿½sa det?
 
 	}
 
@@ -125,10 +125,10 @@ public class PreviewActivity extends MapActivity {
 
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
-		mc = mapView.getController();
+		mController = mapView.getController();
 		mapOverlays = mapView.getOverlays();
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
-		mc.setZoom(5);
+		mController.setZoom(5);
 		onFix();
 
 		mapView.postInvalidate();
@@ -174,11 +174,11 @@ public class PreviewActivity extends MapActivity {
 			int nFlags = Integer.parseInt(fbuff[1]);
 			gP = new GeoPoint[nFlags];
 			for (flags = 0; flags < nFlags; flags++) {
-				int lo = p.getLongitudeE6()
+				int lat = p.getLatitudeE6()
 						+ (randomCordGenerator.nextInt(radius * 2000) - (radius * 1000));
-				int la = p.getLatitudeE6()
+				int lon = p.getLongitudeE6()
 						+ (randomCordGenerator.nextInt(radius * 2000) - (radius * 1000));
-				GeoPoint point = new GeoPoint(la, lo);
+				GeoPoint point = new GeoPoint(lat, lon);
 				gP[flags] = point;
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
@@ -194,8 +194,8 @@ public class PreviewActivity extends MapActivity {
 		myLocationOverlay.runOnFirstFix(new Runnable() {
 			public void run() {
 				p = myLocationOverlay.getMyLocation();
-				mc.animateTo(p);
-				mc.setZoom(17);
+				mController.animateTo(p);
+				mController.setZoom(17);
 				markers();
 			}
 		});

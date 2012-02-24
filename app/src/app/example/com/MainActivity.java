@@ -41,10 +41,8 @@ public class MainActivity extends MapActivity {
 	private LocationListener locationListener;
 	int averageSpeed;
 	int time;
-	public static final String PREFS_NAME = "PrefsFile"; // I filen sparar vi:
-															// time,
-															// averageSpeed,
-															// name, nrOfFLags,
+	public static final String PREFS_NAME = "PrefsFile"; 
+	
 	LinearLayout linerarLayout;
 	MapView mapView;
 	MapController mController;
@@ -109,13 +107,15 @@ public class MainActivity extends MapActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
 
+		//Ivans kod
 		ArrayList<ParcelableGeoPoint> pointsExtra = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
 
 		for (ParcelableGeoPoint p : pointsExtra) {
 			points.add(p.getGeoPoint());
 		}
-
+		//Slut Ivans kod
+		
 		final Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
 		cm.setBase(SystemClock.elapsedRealtime());
 		cm.start();
@@ -181,12 +181,17 @@ public class MainActivity extends MapActivity {
 
 			public void onLocationChanged(Location location) {
 				// TODO Auto-generated method stub
-
+				double lat = location.getLatitude();
+				double lon = location.getLongitude();
+				GeoPoint point = new GeoPoint((int)(lat * 1e6),
+                        (int)(lon * 1e6));
+				mController.animateTo(p);				
+								
 			}
 		};
 
 		lManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				locationListener);
+				this.locationListener);
 	}
 
 	protected void markers() {
