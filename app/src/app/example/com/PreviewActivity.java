@@ -35,6 +35,14 @@ import android.graphics.drawable.Drawable;
 import com.google.android.maps.*;
 
 public class PreviewActivity extends MapActivity {
+	
+	SharedPreferences settings;
+	private int loadIntFromMyPrefs(String key) {
+		int defValue = -1;
+		settings = getSharedPreferences(PREFS_NAME, 0);
+		int value = settings.getInt(key, defValue);
+		return value;
+	}
 
 	int flags;
 	int radius;
@@ -140,7 +148,8 @@ public class PreviewActivity extends MapActivity {
 		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
 		radius = 2000;
-		 for(flags=0;flags<5;flags++){
+		int temp = loadIntFromMyPrefs("flags"); 
+		 for(flags=0;flags<temp;flags++){
 				int lo = p.getLongitudeE6()+(generatorCord.nextInt(radius)-1000);
 				int la = p.getLatitudeE6()+(generatorCord.nextInt(radius)-1000);
 				GeoPoint point = new GeoPoint(la,lo);
