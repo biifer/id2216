@@ -185,7 +185,7 @@ public class MainActivity extends MapActivity {
 				double lon = location.getLongitude();
 				GeoPoint point = new GeoPoint((int)(lat * 1e6),
                         (int)(lon * 1e6));
-				mController.animateTo(p);				
+				mController.animateTo(point);				
 								
 			}
 		};
