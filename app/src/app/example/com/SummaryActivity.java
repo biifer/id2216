@@ -75,13 +75,20 @@ public class SummaryActivity extends MapActivity {
 		Bundle extras = getIntent().getExtras();
 		long time = extras.getLong("time");
 		long timer = SystemClock.elapsedRealtime() -time;
+		long hours = (timer/60000);
 		long minutes=(timer/1000)/60;
 		long seconds=(timer/1000)%60;
 		TextView total = (TextView) findViewById(R.id.total_time);
-		if(minutes < 10 && seconds < 10) {total.setText("Total time: 0" + minutes + ":0" + seconds);}
-		if(minutes < 10 && seconds >= 10) {total.setText("Total time: 0" + minutes + ":" + seconds);}
-		if(minutes >= 10 && seconds < 10) {total.setText("Total time: " + minutes + ":0" + seconds);}
-		if(minutes >= 10 && seconds >= 10) total.setText("Total time: " + minutes + ":" + seconds);
+		String m = null,s = null,h=null;
+
+		if(minutes < 10 ) m = "0" + minutes;
+		else  m = minutes + "";
+		if(seconds < 10 ) s = "0" + seconds;
+		else s = seconds + "";
+		if(hours < 10) h = "0" + hours;
+		else h = hours + "";
+		if(hours == 0) total.setText("Total Time: " + m +":" + s);
+		else total.setText("Total Time: " +h+ ":" + m +":" + s);
 		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
