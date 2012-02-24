@@ -25,11 +25,11 @@
         <item>Radius: 5km</item>
     </string-array>
             <string-array name="flag_spinner">
-        <item>Flags: 1</item>
+        <item>1</item>
         <item>Flags: 2</item>
         <item>Flags: 3</item>
         <item>Flags: 4</item>
-        <item>Flags: 5</item>
+        <item>5</item>
         <item>Flags: 6</item>
         <item>Flags: 7</item>
         <item>Flags: 8</item>
