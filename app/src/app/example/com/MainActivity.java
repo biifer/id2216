@@ -229,7 +229,7 @@ public class MainActivity extends MapActivity {
 	
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub "lol"
 		return false;
 	}
 }
