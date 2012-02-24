@@ -1,9 +1,11 @@
 package app.example.com;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
@@ -45,6 +47,7 @@ public class PreviewActivity extends MapActivity {
 	}
 
 	int flags;
+	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
 	MapView mapView;
 	MapController mc;
 	MyLocationOverlay myLocationOverlay;
@@ -127,6 +130,7 @@ public class PreviewActivity extends MapActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), MainActivity.class);
+				myIntent.putExtra("geoPoints", geoPoints);
 				v.getContext().startActivity(myIntent);
 			}
 		});
@@ -143,7 +147,7 @@ public class PreviewActivity extends MapActivity {
 	}
 	protected void markers(){
 		if(p != null){
-		Random generatorCord = new Random();
+		Random randomCordGenerator = new Random();
 		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
 		String f = loadStringFromMyPrefs("flags");
@@ -153,9 +157,10 @@ public class PreviewActivity extends MapActivity {
 		int radius = Integer.parseInt(rBuff[1]);
 		int nFlags = Integer.parseInt(fbuff[1]);
 		 for(flags=0;flags<nFlags;flags++){
-				int lo = p.getLongitudeE6()+(generatorCord.nextInt(radius * 1000)-1000);
-				int la = p.getLatitudeE6()+(generatorCord.nextInt(radius * 1000)-1000);
+				int lo = p.getLongitudeE6()+(randomCordGenerator.nextInt(radius * 2000)-(radius * 1000));
+				int la = p.getLatitudeE6()+(randomCordGenerator.nextInt(radius * 2000)-(radius * 1000));
 				GeoPoint point = new GeoPoint(la,lo);
+				geoPoints.add(new ParcelableGeoPoint(point));
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
 				};

@@ -1,5 +1,8 @@
 package app.example.com;
 
+import java.util.ArrayList;
+
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
@@ -7,6 +10,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -87,6 +91,13 @@ public class MainActivity extends MapActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
+		
+		ArrayList<ParcelableGeoPoint> pointsExtra =  getIntent().getParcelableArrayListExtra("geoPoints");
+		ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
+
+		for (ParcelableGeoPoint point : pointsExtra) {
+			points.add(point.getGeoPoint());
+		}
 		
 		final Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
 		cm.setBase(SystemClock.elapsedRealtime());
