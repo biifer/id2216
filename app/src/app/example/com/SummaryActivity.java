@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SummaryActivity extends MapActivity {
@@ -23,7 +25,6 @@ public class SummaryActivity extends MapActivity {
 	int totalDistance;
 	int averageSpeed;
 	int numberOfFlags;
-	
 	
 	private void saveIntToMyPrefs(String key, int value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
@@ -70,7 +71,18 @@ public class SummaryActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.summary);
+		setContentView(R.layout.summary);	
+		Bundle extras = getIntent().getExtras();
+		long time = extras.getLong("time");
+		long timer = SystemClock.elapsedRealtime() -time;
+		long minutes=(timer/1000)/60;
+		long seconds=(timer/1000)%60;
+		TextView total = (TextView) findViewById(R.id.total_time);
+		if(minutes < 10 && seconds < 10) {total.setText("Total time: 0" + minutes + ":0" + seconds);}
+		if(minutes < 10 && seconds >= 10) {total.setText("Total time: 0" + minutes + ":" + seconds);}
+		if(minutes >= 10 && seconds < 10) {total.setText("Total time: " + minutes + ":0" + seconds);}
+		if(minutes >= 10 && seconds >= 10) total.setText("Total time: " + minutes + ":" + seconds);
+		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
 			

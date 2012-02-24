@@ -88,7 +88,7 @@ public class MainActivity extends MapActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
 		
-		Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
+		final Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
 		cm.setBase(SystemClock.elapsedRealtime());
 		cm.start();
 		
@@ -120,6 +120,7 @@ public class MainActivity extends MapActivity {
 				
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), SummaryActivity.class);
+				myIntent.putExtra("time", cm.getBase());
 				v.getContext().startActivity(myIntent);
 			}
 		});
