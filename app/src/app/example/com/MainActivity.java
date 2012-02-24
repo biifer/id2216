@@ -3,15 +3,14 @@ package app.example.com;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -108,9 +107,12 @@ public class MainActivity extends MapActivity {
 		setContentView(R.layout.main);
 		Drawable drawable = this.getResources().getDrawable(
 				R.drawable.map_pin_24);
-		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(
-				drawable);
-		mapOverlays.add(itemizedoverlay);
+		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
+		mapView = (MapView) findViewById(R.id.mapviewMain);
+		mapView.setBuiltInZoomControls(false);
+		mController = mapView.getController();
+		mapOverlays = mapView.getOverlays();
+		
 		//Ivans kod
 		ArrayList<ParcelableGeoPoint> pointsExtra = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
@@ -120,17 +122,23 @@ public class MainActivity extends MapActivity {
 		}
 		//Slut Ivans kod
 		
+		int numOfPoints = points.size();
+		for (int i = 0; i < numOfPoints; i++) {
+			GeoPoint point = points.get(i);
+			OverlayItem overlayitem = new OverlayItem(point, null, null);
+			itemizedoverlay.addOverlay(overlayitem);
+		};
+		
+		mapOverlays.add(itemizedoverlay);
+		mapView.postInvalidate();
+
+		
 		final Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
 		cm.setBase(SystemClock.elapsedRealtime());
 		cm.start();
 
-		mapView = (MapView) findViewById(R.id.mapviewMain);
-		mapView.setBuiltInZoomControls(false);
-		mController = mapView.getController();
-		mapOverlays = mapView.getOverlays();
-		myLocationOverlay = new MyLocationOverlay(this, mapView);
-		mController.setZoom(5);
-		onFix();
+
+
 
 		Button checkPoint = (Button) findViewById(R.id.checkpoint);
 		checkPoint.setOnClickListener(new OnClickListener() {
@@ -196,38 +204,6 @@ public class MainActivity extends MapActivity {
 
 		lManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
 				this.locationListener);
-	}
-
-	protected void markers() {
-		if (p != null) {
-			Drawable drawable = this.getResources().getDrawable(
-					R.drawable.map_pin_24);
-			MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(
-					drawable);
-			int numOfPoints = points.size();
-			for (int i = 0; i < numOfPoints; i++) {
-				GeoPoint point = points.get(i);
-				OverlayItem overlayitem = new OverlayItem(point, null, null);
-				itemizedoverlay.addOverlay(overlayitem);
-			}
-			;
-			mapOverlays.clear();
-			mapOverlays.add(myLocationOverlay);
-			mapOverlays.add(itemizedoverlay);
-			mapView.postInvalidate();
-		}
-	}
-
-	protected void onFix() {
-		myLocationOverlay.runOnFirstFix(new Runnable() {
-			public void run() {
-				p = myLocationOverlay.getMyLocation();
-				mController.animateTo(p);
-				mController.setZoom(17);
-				markers();
-			}
-		});
-
 	}
 
 	protected void onResume() {
