@@ -17,11 +17,11 @@
     <string name="speed">Speed: </string>
     <string name="total_distance">Total distance: </string>
         <string-array name="radius_spinner">
-        <item>Radius: 1km</item>
-        <item>Radius: 2km</item>
-        <item>Radius: 3km</item>
-        <item>Radius: 4km</item>
-        <item>Radius: 5km</item>
+        <item>Radius: 1 km</item>
+        <item>Radius: 2 km</item>
+        <item>Radius: 3 km</item>
+        <item>Radius: 4 km</item>
+        <item>Radius: 5 km</item>
     </string-array>
             <string-array name="flag_spinner">
         <item>Flags: 1</item>

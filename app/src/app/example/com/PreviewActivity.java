@@ -148,12 +148,15 @@ public class PreviewActivity extends MapActivity {
 		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
 		radius = 2000;
-		String temp = loadStringFromMyPrefs("flags");
-		String buff[] = temp.split(" ");
-		int t = Integer.parseInt(buff[1]);
-		 for(flags=0;flags<t;flags++){
-				int lo = p.getLongitudeE6()+(generatorCord.nextInt(radius)-1000);
-				int la = p.getLatitudeE6()+(generatorCord.nextInt(radius)-1000);
+		String f = loadStringFromMyPrefs("flags");
+		String r = loadStringFromMyPrefs("radius");
+		String rBuff[] = r.split(" ");
+		String fbuff[] = f.split(" ");
+		int radius = Integer.parseInt(rBuff[1]);
+		int nFlags = Integer.parseInt(fbuff[1]);
+		 for(flags=0;flags<nFlags;flags++){
+				int lo = p.getLongitudeE6()+(generatorCord.nextInt(radius)-(radius*1000));
+				int la = p.getLatitudeE6()+(generatorCord.nextInt(radius)-(radius*1000));
 				GeoPoint point = new GeoPoint(la,lo);
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
