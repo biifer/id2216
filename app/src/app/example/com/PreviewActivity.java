@@ -220,41 +220,5 @@ public class PreviewActivity extends MapActivity {
 		return true;
 	}
 
-	class MyOverlay extends Overlay {
 
-		public MyOverlay() {
-
-		}
-
-		public void draw(Canvas canvas, MapView mapv, boolean shadow) {
-			super.draw(canvas, mapv, shadow);
-
-			Paint mPaint = new Paint();
-			mPaint.setDither(true);
-			mPaint.setColor(Color.RED);
-			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-			mPaint.setStrokeJoin(Paint.Join.ROUND);
-			mPaint.setStrokeCap(Paint.Cap.ROUND);
-			mPaint.setStrokeWidth(2);
-
-			int lo = p.getLongitudeE6();
-			int la = p.getLatitudeE6();
-			GeoPoint gP1 = new GeoPoint(lo, la);
-			GeoPoint gP2 = new GeoPoint(lo + 1000, la + 1000);
-
-			Point p1 = new Point();
-			Point p2 = new Point();
-
-			Path path = new Path();
-
-			Projection projection = mapv.getProjection();
-			projection.toPixels(gP1, p1);
-			projection.toPixels(gP2, p2);
-
-			path.moveTo(p2.x, p2.y);
-			path.lineTo(p1.x, p1.y);
-
-			canvas.drawPath(path, mPaint);
-		}
-	}
 }
