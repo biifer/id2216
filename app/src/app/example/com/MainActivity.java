@@ -48,7 +48,8 @@ public class MainActivity extends MapActivity {
 	GeoPoint p;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
-
+	MyLocationOverlay myLocationOverlay;
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu2, menu);
@@ -108,10 +109,11 @@ public class MainActivity extends MapActivity {
 				R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
 		mapView = (MapView) findViewById(R.id.mapviewMain);
-		mapView.setBuiltInZoomControls(false);
+		mapView.setBuiltInZoomControls(true);
 		mController = mapView.getController();
 		mapOverlays = mapView.getOverlays();
-		
+		myLocationOverlay = new MyLocationOverlay(this, mapView);
+		mapView.getOverlays().add(myLocationOverlay);
 		//Ivans kod
 		ArrayList<ParcelableGeoPoint> pointsExtra = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
@@ -207,12 +209,14 @@ public class MainActivity extends MapActivity {
 
 	protected void onResume() {
 		super.onResume();
+		myLocationOverlay.enableMyLocation();
 
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		myLocationOverlay.disableMyLocation();
 	}
 
 	@Override
