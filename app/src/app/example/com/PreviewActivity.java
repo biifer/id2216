@@ -128,6 +128,7 @@ public class PreviewActivity extends MapActivity {
 		mController = mapView.getController();
 		mapOverlays = mapView.getOverlays();
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
+		mapView.getOverlays().add(myLocationOverlay);
 		mController.setZoom(5);
 		onFix();
 
@@ -158,13 +159,15 @@ public class PreviewActivity extends MapActivity {
 		});
 
 	}
-
+	MapItemizedOverlay itemizedoverlay;
 	protected void markers() {
+		if (itemizedoverlay != null )
+			itemizedoverlay.clear();
 		if (p != null) {
 			Random randomCordGenerator = new Random();
 			Drawable drawable = this.getResources().getDrawable(
 					R.drawable.map_pin_24);
-			MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(
+			itemizedoverlay = new MapItemizedOverlay(
 					drawable);
 			String f = loadStringFromMyPrefs("flags");
 			String r = loadStringFromMyPrefs("radius");
@@ -183,8 +186,8 @@ public class PreviewActivity extends MapActivity {
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
 			};
-			mapOverlays.clear();
-			mapOverlays.add(myLocationOverlay);
+		//	mapOverlays.clear();
+			
 			mapOverlays.add(itemizedoverlay);
 			mapView.postInvalidate();
 		}

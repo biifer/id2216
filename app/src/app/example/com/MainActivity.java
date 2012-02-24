@@ -106,7 +106,11 @@ public class MainActivity extends MapActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
-
+		Drawable drawable = this.getResources().getDrawable(
+				R.drawable.map_pin_24);
+		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(
+				drawable);
+		mapOverlays.add(itemizedoverlay);
 		//Ivans kod
 		ArrayList<ParcelableGeoPoint> pointsExtra = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
