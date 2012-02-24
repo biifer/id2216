@@ -208,14 +208,12 @@ public class MainActivity extends MapActivity {
 
 	protected void onResume() {
 		super.onResume();
-		myLocationOverlay.enableMyLocation();
 
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		myLocationOverlay.disableMyLocation();
 	}
 
 	@Override

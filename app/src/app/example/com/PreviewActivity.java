@@ -138,7 +138,7 @@ public class PreviewActivity extends MapActivity {
 		start.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				
+				geoPoints.clear();
 				for (int i = 0; i < gP.length; i++) {
 					geoPoints.add(new ParcelableGeoPoint(gP[i]));
 				}
