@@ -2,12 +2,11 @@
 <resources>
 
     <string name="hello">Hello World, AppActivity!</string>
-    <string name="app_name">Map</string>
+    <string name="app_name">RUN!</string>
     <string name="normal_mode">Normal Mode</string>
     <string name="radius">Radius</string>
      <string name="distance">Distance</string>
       <string name="flags">No. of Flags</string>
-    <string name="welcome_normal">Normal mode</string>
     <string name="summary">Summary</string>
     <string name="start">Start!</string>
     <string name="new_route">New route</string>
