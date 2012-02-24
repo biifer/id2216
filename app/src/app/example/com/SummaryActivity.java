@@ -90,6 +90,10 @@ public class SummaryActivity extends MapActivity {
 		if(hours == 0) total.setText("Total Time: " + m +":" + s);
 		else total.setText("Total Time: " +h+ ":" + m +":" + s);
 		
+		String flags = loadStringFromMyPrefs("flags");
+		TextView flag_text = (TextView) findViewById(R.id.No_of_flags);
+		flag_text.setText("No of flags: " + flags);
+		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
 			
