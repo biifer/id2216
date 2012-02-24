@@ -37,203 +37,224 @@ import android.graphics.drawable.Drawable;
 import com.google.android.maps.*;
 
 public class PreviewActivity extends MapActivity {
-	
+
 	SharedPreferences settings;
+
 	private String loadStringFromMyPrefs(String key) {
 		String defValue = "-1";
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		String value = settings.getString(key, defValue);
-		return value;	
+		return value;
 	}
 
 	int flags;
+	GeoPoint[] gP;
 	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
 	MapView mapView;
 	MapController mc;
 	MyLocationOverlay myLocationOverlay;
-	
-	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, 
+
+	public static final String PREFS_NAME = "PrefsFile"; // I filen sparar vi:
+															// time,
+															// averageSpeed,
+															// name, nrOfFLags,
 
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.menu2, menu);
-	    return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu2, menu);
+		return true;
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Context myContext = this; 
-	    switch (item.getItemId()) {
-	        case R.id.about:
-	        	 final Dialog dialog = new Dialog(myContext);
-	                dialog.setContentView(R.layout.about);
-	                dialog.setTitle("About");
-	                dialog.setCancelable(true);
+		Context myContext = this;
+		switch (item.getItemId()) {
+		case R.id.about:
+			final Dialog dialog = new Dialog(myContext);
+			dialog.setContentView(R.layout.about);
+			dialog.setTitle("About");
+			dialog.setCancelable(true);
 
-	                TextView text = (TextView) dialog.findViewById(R.id.aboutText);
-	                text.setText("I belive I can fly v1.02");
+			TextView text = (TextView) dialog.findViewById(R.id.aboutText);
+			text.setText("I belive I can fly v1.02");
 
-	              
-	                dialog.show();
-				break;
-	        case R.id.help:
-	        	 final Dialog dialog2 = new Dialog(myContext);
-	                dialog2.setContentView(R.layout.help);
-	                dialog2.setTitle("Help");
-	                dialog2.setCancelable(true);
+			dialog.show();
+			break;
+		case R.id.help:
+			final Dialog dialog2 = new Dialog(myContext);
+			dialog2.setContentView(R.layout.help);
+			dialog2.setTitle("Help");
+			dialog2.setCancelable(true);
 
-	                text = (TextView) dialog2.findViewById(R.id.Text);
-	                text.setText("Help? Look at the map! That's you...");
+			text = (TextView) dialog2.findViewById(R.id.Text);
+			text.setText("Help? Look at the map! That's you...");
 
-	                Button button = (Button) dialog2.findViewById(R.id.cancel);
-	                button.setOnClickListener(new OnClickListener() {
-	                	
-	                public void onClick(View v) {
-	                        dialog2.dismiss();
-	                    }
-	                });
-	                dialog2.show();
-	                break;
-	   	        case	R.id.newG:
-	   					Intent myIntent = new Intent(this, AppActivity.class);
-	   					this.startActivity(myIntent);	
-	   	        	break;
-	        default:
-	        	break;
-	    }
-	    return false;
+			Button button = (Button) dialog2.findViewById(R.id.cancel);
+			button.setOnClickListener(new OnClickListener() {
+
+				public void onClick(View v) {
+					dialog2.dismiss();
+				}
+			});
+			dialog2.show();
+			break;
+		case R.id.newG:
+			Intent myIntent = new Intent(this, AppActivity.class);
+			this.startActivity(myIntent);
+			break;
+		default:
+			break;
+		}
+		return false;
 	}
+
 	private void saveToMyPrefs() {
-		//TODO lägga in alla parametrar som ska sparas till summary, koordinater av flaggor: hur lösa det?
-		
+		// TODO lägga in alla parametrar som ska sparas till summary,
+		// koordinater av flaggor: hur lösa det?
+
 	}
+
 	GeoPoint p;
 	List<Overlay> mapOverlays;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+
 		setContentView(R.layout.preview);
+		
 
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 		mc = mapView.getController();
 		mapOverlays = mapView.getOverlays();
-		myLocationOverlay = new MyLocationOverlay(this, mapView);	
-	    mc.setZoom(5);
-	    onFix();
-	    
-	    mapView.postInvalidate();
- 
-		Button start = (Button)findViewById(R.id.start_button);
-        start.setOnClickListener(new OnClickListener() {
-			
+		myLocationOverlay = new MyLocationOverlay(this, mapView);
+		mc.setZoom(5);
+		onFix();
+
+		mapView.postInvalidate();
+
+		Button start = (Button) findViewById(R.id.start_button);
+		start.setOnClickListener(new OnClickListener() {
+
 			public void onClick(View v) {
+				
+				for (int i = 0; i < gP.length; i++) {
+					geoPoints.add(new ParcelableGeoPoint(gP[i]));
+				}
+
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 				myIntent.putExtra("geoPoints", geoPoints);
 				v.getContext().startActivity(myIntent);
 			}
 		});
-		
-        Button newRoute = (Button)findViewById(R.id.new_route_button);
-        newRoute.setOnClickListener(new OnClickListener() {
-			
+
+		Button newRoute = (Button) findViewById(R.id.new_route_button);
+		newRoute.setOnClickListener(new OnClickListener() {
+
 			public void onClick(View v) {
 				markers();
 			}
 		});
-         
-       
+
 	}
-	protected void markers(){
-		if(p != null){
-		Random randomCordGenerator = new Random();
-		Drawable drawable = this.getResources().getDrawable(R.drawable.map_pin_24);
-		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
-		String f = loadStringFromMyPrefs("flags");
-		String r = loadStringFromMyPrefs("radius");
-		String rBuff[] = r.split(" ");
-		String fbuff[] = f.split(" ");
-		int radius = Integer.parseInt(rBuff[1]);
-		int nFlags = Integer.parseInt(fbuff[1]);
-		 for(flags=0;flags<nFlags;flags++){
-				int lo = p.getLongitudeE6()+(randomCordGenerator.nextInt(radius * 2000)-(radius * 1000));
-				int la = p.getLatitudeE6()+(randomCordGenerator.nextInt(radius * 2000)-(radius * 1000));
-				GeoPoint point = new GeoPoint(la,lo);
-				geoPoints.add(new ParcelableGeoPoint(point));
+
+	protected void markers() {
+		if (p != null) {
+			Random randomCordGenerator = new Random();
+			Drawable drawable = this.getResources().getDrawable(
+					R.drawable.map_pin_24);
+			MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(
+					drawable);
+			String f = loadStringFromMyPrefs("flags");
+			String r = loadStringFromMyPrefs("radius");
+			String rBuff[] = r.split(" ");
+			String fbuff[] = f.split(" ");
+			int radius = Integer.parseInt(rBuff[1]);
+			int nFlags = Integer.parseInt(fbuff[1]);
+			gP = new GeoPoint[nFlags];
+			for (flags = 0; flags < nFlags; flags++) {
+				int lo = p.getLongitudeE6()
+						+ (randomCordGenerator.nextInt(radius * 2000) - (radius * 1000));
+				int la = p.getLatitudeE6()
+						+ (randomCordGenerator.nextInt(radius * 2000) - (radius * 1000));
+				GeoPoint point = new GeoPoint(la, lo);
+				gP[flags] = point;
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
-				};
-				mapOverlays.clear();
-				mapOverlays.add(myLocationOverlay); 
-				mapOverlays.add(itemizedoverlay);
-				mapView.postInvalidate();
+			};
+			mapOverlays.clear();
+			mapOverlays.add(myLocationOverlay);
+			mapOverlays.add(itemizedoverlay);
+			mapView.postInvalidate();
 		}
 	}
-	 protected void onFix(){
-		 myLocationOverlay.runOnFirstFix(new Runnable() { 
-		    	public void run() {
-		    		p = myLocationOverlay.getMyLocation();
-		        mc.animateTo(p);
-		        mc.setZoom(17);
-		        markers();
-		    	}
-		    	});
 
-	 }
-	protected void onResume() {
-    super.onResume();
-	    myLocationOverlay.enableMyLocation();
+	protected void onFix() {
+		myLocationOverlay.runOnFirstFix(new Runnable() {
+			public void run() {
+				p = myLocationOverlay.getMyLocation();
+				mc.animateTo(p);
+				mc.setZoom(17);
+				markers();
+			}
+		});
 
 	}
+
+	protected void onResume() {
+		super.onResume();
+		myLocationOverlay.enableMyLocation();
+
+	}
+
 	@Override
 	protected void onPause() {
-	    super.onPause();
-	    myLocationOverlay.disableMyLocation();
+		super.onPause();
+		myLocationOverlay.disableMyLocation();
 	}
-	
+
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	class MyOverlay extends Overlay{
 
-	    public MyOverlay(){
+	class MyOverlay extends Overlay {
 
-	    }   
+		public MyOverlay() {
 
-	    public void draw(Canvas canvas, MapView mapv, boolean shadow){
-	        super.draw(canvas, mapv, shadow);
+		}
 
-	            Paint mPaint = new Paint();
-	        mPaint.setDither(true);
-	        mPaint.setColor(Color.RED);
-	        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-	        mPaint.setStrokeJoin(Paint.Join.ROUND);
-	        mPaint.setStrokeCap(Paint.Cap.ROUND);
-	        mPaint.setStrokeWidth(2);
-	        
-	        
-	        int lo = p.getLongitudeE6();
-	        int la = p.getLatitudeE6();
-	        GeoPoint gP1 = new GeoPoint(lo,la);
-	        GeoPoint gP2 = new GeoPoint(lo + 1000, la + 1000);
+		public void draw(Canvas canvas, MapView mapv, boolean shadow) {
+			super.draw(canvas, mapv, shadow);
 
-	        Point p1 = new Point();
-	        Point p2 = new Point();
+			Paint mPaint = new Paint();
+			mPaint.setDither(true);
+			mPaint.setColor(Color.RED);
+			mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+			mPaint.setStrokeJoin(Paint.Join.ROUND);
+			mPaint.setStrokeCap(Paint.Cap.ROUND);
+			mPaint.setStrokeWidth(2);
 
-	            Path path = new Path();
+			int lo = p.getLongitudeE6();
+			int la = p.getLatitudeE6();
+			GeoPoint gP1 = new GeoPoint(lo, la);
+			GeoPoint gP2 = new GeoPoint(lo + 1000, la + 1000);
 
-	            Projection projection = mapv.getProjection();
-	            projection.toPixels(gP1, p1);
-	        projection.toPixels(gP2, p2);
+			Point p1 = new Point();
+			Point p2 = new Point();
 
-	        path.moveTo(p2.x, p2.y);
-	        path.lineTo(p1.x,p1.y);
+			Path path = new Path();
 
-	        canvas.drawPath(path, mPaint);
-	    }
+			Projection projection = mapv.getProjection();
+			projection.toPixels(gP1, p1);
+			projection.toPixels(gP2, p2);
+
+			path.moveTo(p2.x, p2.y);
+			path.lineTo(p1.x, p1.y);
+
+			canvas.drawPath(path, mPaint);
+		}
 	}
 }

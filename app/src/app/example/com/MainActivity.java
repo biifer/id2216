@@ -1,16 +1,23 @@
 package app.example.com;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -37,6 +44,12 @@ public class MainActivity extends MapActivity {
 	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, 
 	LinearLayout linerarLayout;
 	MapView mapView;
+	MapController mc;
+	MyLocationOverlay myLocationOverlay;
+	GeoPoint p;
+	List<Overlay> mapOverlays;
+	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
+
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -93,10 +106,9 @@ public class MainActivity extends MapActivity {
 		setContentView(R.layout.main);
 		
 		ArrayList<ParcelableGeoPoint> pointsExtra =  getIntent().getParcelableArrayListExtra("geoPoints");
-		ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 
-		for (ParcelableGeoPoint point : pointsExtra) {
-			points.add(point.getGeoPoint());
+		for (ParcelableGeoPoint p : pointsExtra) {
+			points.add(p.getGeoPoint());
 		}
 		
 		final Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
@@ -105,6 +117,11 @@ public class MainActivity extends MapActivity {
 		
 		mapView = (MapView) findViewById(R.id.mapviewMain);
 		mapView.setBuiltInZoomControls(false);
+		mc = mapView.getController();
+		mapOverlays = mapView.getOverlays();
+		myLocationOverlay = new MyLocationOverlay(this, mapView);
+		mc.setZoom(5);
+		onFix();
 		
         Button checkPoint = (Button) findViewById(R.id.checkpoint);
         checkPoint.setOnClickListener(new OnClickListener() {
@@ -167,6 +184,49 @@ public class MainActivity extends MapActivity {
 				locationListener);
 	}
 
+	protected void markers() {
+		if (p != null) {
+			Drawable drawable = this.getResources().getDrawable(
+					R.drawable.map_pin_24);
+			MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(
+					drawable);
+			int numOfPoints = points.size();
+			for (int i = 0; i < numOfPoints; i++) {
+				GeoPoint point = points.get(i);
+				OverlayItem overlayitem = new OverlayItem(point, null, null);
+				itemizedoverlay.addOverlay(overlayitem);
+			};
+			mapOverlays.clear();
+			mapOverlays.add(myLocationOverlay);
+			mapOverlays.add(itemizedoverlay);
+			mapView.postInvalidate();
+		}
+	}
+
+	protected void onFix() {
+		myLocationOverlay.runOnFirstFix(new Runnable() {
+			public void run() {
+				p = myLocationOverlay.getMyLocation();
+				mc.animateTo(p);
+				mc.setZoom(17);
+				markers();
+			}
+		});
+
+	}
+
+	protected void onResume() {
+		super.onResume();
+		myLocationOverlay.enableMyLocation();
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		myLocationOverlay.disableMyLocation();
+	}
+	
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
