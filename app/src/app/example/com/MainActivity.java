@@ -56,7 +56,7 @@ public class MainActivity extends MapActivity {
 	Location destLocation = new Location("destLoaction");
 	Location prevLocation = new Location("prevLocation");
 	float distanceToNearestPoint = 9000;
-	float distance, totalDistance;
+	float distance, totalDistance = 0;
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -178,6 +178,7 @@ public class MainActivity extends MapActivity {
 				myIntent.putExtra("time", cm.getBase());
 				myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
 				v.getContext().startActivity(myIntent);
+				finish();
 			}
 		});
 
@@ -233,6 +234,9 @@ public class MainActivity extends MapActivity {
 					distance = location.distanceTo(destLocation);
 					if (distanceToNearestPoint > distance) {
 						distanceToNearestPoint = distance;
+						TextView distance_to_point = (TextView) findViewById(R.id.distance_to_point);
+						distance_to_point.setText("Distance to nearest point: " + distanceToNearestPoint + "m");
+
 					}
 					/*
 					 * user catches a flag if current position is within 1000m
@@ -261,18 +265,14 @@ public class MainActivity extends MapActivity {
 
 				}
 				if (notYetReachedPoints.isEmpty()) {
+					
 					/*
-					 * Context context = getApplicationContext();
-					 * SharedPreferences settings = getSharedPreferences(
-					 * PREFS_NAME, 0); SharedPreferences.Editor editor =
-					 * settings.edit(); editor.putInt("time", time);
-					 * editor.putInt("averageSpeed", averageSpeed);
-					 * 
-					 * // TODO Auto-generated method stub Intent myIntent = new
-					 * Intent(context, SummaryActivity.class); //
-					 * myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
-					 * context.startActivity(myIntent);
+					 * This is part of a strange bug-fix
+					 * the location listener does not shut off when the "finish()" method is called
 					 */
+					lManager.removeUpdates(locationListener);
+					lManager = null;
+					
 					Intent myIntent = new Intent(MainActivity.this,
 							SummaryActivity.class);
 					myIntent.putExtra("time", cm.getBase());
@@ -280,6 +280,7 @@ public class MainActivity extends MapActivity {
 					myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
 
 					MainActivity.this.startActivity(myIntent);
+					finish();
 				}
 			}
 
