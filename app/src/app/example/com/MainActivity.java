@@ -49,6 +49,8 @@ public class MainActivity extends MapActivity {
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	MyLocationOverlay myLocationOverlay;
+	float distance;
+
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -192,7 +194,7 @@ public class MainActivity extends MapActivity {
 
 			}
 
-			@SuppressWarnings("null")
+			
 			public void onLocationChanged(Location location) {
 				// TODO Auto-generated method stub
 				double lat = location.getLatitude();
@@ -200,17 +202,14 @@ public class MainActivity extends MapActivity {
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
 				mController.animateTo(point);
-
-				float distance;
 				Location destLocation = null;
-				Location currLocation = null;
-				currLocation.setLatitude(point.getLatitudeE6());
-				currLocation.setLongitude(point.getLongitudeE6());
 
 				for (int i = 0; i < points.size(); i++) {
-					destLocation.setLatitude(points.get(i).getLatitudeE6());
-					destLocation.setLongitude(points.get(i).getLongitudeE6());
-					distance = currLocation.distanceTo(destLocation);
+					
+					destLocation.reset();					
+					destLocation.setLatitude((double)points.get(i).getLatitudeE6());
+					destLocation.setLongitude((double)points.get(i).getLongitudeE6());
+					distance = location.distanceTo(destLocation);
 					/*
 					 * user catches a flag if current position is within 10m of a flag
 					 */
@@ -219,6 +218,11 @@ public class MainActivity extends MapActivity {
 						 * checkpoint reached 
 						 * change color of flag
 						 */
+						Context context = getApplicationContext();
+						CharSequence text = "Checkpoint reached!";
+						int duration = Toast.LENGTH_LONG;
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
 					}
 
 				}
