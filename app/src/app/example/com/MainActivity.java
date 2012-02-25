@@ -48,10 +48,11 @@ public class MainActivity extends MapActivity {
 	GeoPoint p;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
+	ArrayList<GeoPoint> notYetReachedPoints = new ArrayList<GeoPoint>();
 	MyLocationOverlay myLocationOverlay;
 	Location destLocation = new Location("destLoaction");
+	float distanceToNearestPoint = 9000;
 	float distance;
-
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -80,7 +81,7 @@ public class MainActivity extends MapActivity {
 
 			text = (TextView) helpDialog.findViewById(R.id.Text);
 			/*
-			 * "Run faggot run!" kanske borde sparas i filen strins istället?
+			 * "Run faggot run!" kanske borde sparas i filen strings istället?
 			 */
 			text.setText("Run faggot run!");
 
@@ -126,6 +127,7 @@ public class MainActivity extends MapActivity {
 
 		for (ParcelableGeoPoint p : arrayOfParcebleGeoPoints) {
 			points.add(p.getGeoPoint());
+			notYetReachedPoints.add(p.getGeoPoint());
 		}
 
 		int numOfPoints = points.size();
@@ -155,10 +157,12 @@ public class MainActivity extends MapActivity {
 				toast.show();
 			}
 		});
+		
+	
 
 		Button summary = (Button) findViewById(R.id.summary);
 		summary.setOnClickListener(new OnClickListener() {
-
+	
 			public void onClick(View v) {
 
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -195,7 +199,6 @@ public class MainActivity extends MapActivity {
 
 			}
 
-			
 			public void onLocationChanged(Location location) {
 				// TODO Auto-generated method stub
 				double lat = location.getLatitude();
@@ -203,32 +206,63 @@ public class MainActivity extends MapActivity {
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
 				mController.animateTo(point);
-				
 
-				for (int i = 0; i < points.size(); i++) {
-					
-					float latitude = (float) (points.get(i).getLatitudeE6() / 1E6);
-					float longitude = (float) (points.get(i).getLongitudeE6() / 1E6);
-
-					destLocation.setLatitude(latitude);
-					destLocation.setLongitude(longitude);
-					
-					distance = location.distanceTo(destLocation);
+				if (notYetReachedPoints.isEmpty()) {
 					/*
-					 * user catches a flag if current position is within 10m of a flag
-					 */
-					if (distance < 10) {
-						/*
-						 * checkpoint reached 
-						 * change color of flag
-						 */
-						Context context = getApplicationContext();
-						CharSequence text = "Checkpoint reached!";
-						int duration = Toast.LENGTH_LONG;
-						Toast toast = Toast.makeText(context, text, duration);
-						toast.show();
-					}
+					Context context = getApplicationContext();
+					SharedPreferences settings = getSharedPreferences(
+							PREFS_NAME, 0);
+					SharedPreferences.Editor editor = settings.edit();
+					editor.putInt("time", time);
+					editor.putInt("averageSpeed", averageSpeed);
 
+					// TODO Auto-generated method stub
+					Intent myIntent = new Intent(context, SummaryActivity.class);
+					//myIntent.putExtra("time", cm.getBase());
+					myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
+					context.startActivity(myIntent);
+					*/
+				} else {
+
+					for (int i = 0; i < notYetReachedPoints.size(); i++) {
+
+						float latitude = (float) (notYetReachedPoints.get(i)
+								.getLatitudeE6() / 1E6);
+						float longitude = (float) (notYetReachedPoints.get(i)
+								.getLongitudeE6() / 1E6);
+
+						destLocation.setLatitude(latitude);
+						destLocation.setLongitude(longitude);
+						distance = location.distanceTo(destLocation);
+						if (distanceToNearestPoint > distance) {
+							distanceToNearestPoint = distance;
+						}
+						/*
+						 * user catches a flag if current position is within
+						 * 1000m of a flag
+						 */
+						if (distance < 1000) {
+							/*
+							 * checkpoint reached
+							 */
+							Context context = getApplicationContext();
+							CharSequence text = "Checkpoint reached!";
+							int duration = Toast.LENGTH_LONG;
+							Toast toast = Toast.makeText(context, text,
+									duration);
+							toast.show();
+							/*
+							 * remove the reached point from the list
+							 */
+							notYetReachedPoints.remove(i);
+
+							/*
+							 * change color of flag
+							 */
+
+						}
+
+					}
 				}
 
 			}
