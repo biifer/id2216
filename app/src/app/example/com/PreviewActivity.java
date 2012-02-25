@@ -38,7 +38,17 @@ import com.google.android.maps.*;
 
 public class PreviewActivity extends MapActivity {
 
+	int flags;
 	SharedPreferences settings;
+	GeoPoint[] gP;
+	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
+	MapView mapView;
+	MapController mController;
+	MyLocationOverlay myLocationOverlay;
+	GeoPoint p;
+	List<Overlay> mapOverlays;
+
+	public static final String PREFS_NAME = "PrefsFile";
 
 	private String loadStringFromMyPrefs(String key) {
 		String defValue = "-1";
@@ -46,19 +56,7 @@ public class PreviewActivity extends MapActivity {
 		String value = settings.getString(key, defValue);
 		return value;
 	}
-
-	int flags;
-	GeoPoint[] gP;
-	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
-	MapView mapView;
-	MapController mc;
-	MyLocationOverlay myLocationOverlay;
-
-	public static final String PREFS_NAME = "PrefsFile"; // I filen sparar vi:
-															// time,
-															// averageSpeed,
-															// name, nrOfFLags,
-
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu2, menu);
@@ -108,13 +106,12 @@ public class PreviewActivity extends MapActivity {
 	}
 
 	private void saveToMyPrefs() {
-		// TODO lägga in alla parametrar som ska sparas till summary,
-		// koordinater av flaggor: hur lösa det?
+		// TODO lï¿½gga in alla parametrar som ska sparas till summary,
+		// koordinater av flaggor: hur lï¿½sa det?
 
 	}
 
-	GeoPoint p;
-	List<Overlay> mapOverlays;
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -125,10 +122,11 @@ public class PreviewActivity extends MapActivity {
 
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
-		mc = mapView.getController();
+		mController = mapView.getController();
 		mapOverlays = mapView.getOverlays();
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
-		mc.setZoom(5);
+		mapView.getOverlays().add(myLocationOverlay);
+		mController.setZoom(5);
 		onFix();
 
 		mapView.postInvalidate();
@@ -137,12 +135,17 @@ public class PreviewActivity extends MapActivity {
 		start.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				
+				// TODO Auto-generated method stub
+				/*
+				 * Clears the geoPoints list.
+				 */
+				geoPoints.clear();
+				/*
+				 * Adds the list again in order to pass them to the next activity.
+				 */
 				for (int i = 0; i < gP.length; i++) {
 					geoPoints.add(new ParcelableGeoPoint(gP[i]));
 				}
-
-				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 				myIntent.putExtra("geoPoints", geoPoints);
 				v.getContext().startActivity(myIntent);
@@ -158,13 +161,15 @@ public class PreviewActivity extends MapActivity {
 		});
 
 	}
-
+	MapItemizedOverlay itemizedoverlay;
 	protected void markers() {
+		if (itemizedoverlay != null )
+			itemizedoverlay.clear();
 		if (p != null) {
 			Random randomCordGenerator = new Random();
 			Drawable drawable = this.getResources().getDrawable(
 					R.drawable.map_pin_24);
-			MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(
+			itemizedoverlay = new MapItemizedOverlay(
 					drawable);
 			String f = loadStringFromMyPrefs("flags");
 			String r = loadStringFromMyPrefs("radius");
@@ -174,17 +179,16 @@ public class PreviewActivity extends MapActivity {
 			int nFlags = Integer.parseInt(fbuff[1]);
 			gP = new GeoPoint[nFlags];
 			for (flags = 0; flags < nFlags; flags++) {
-				int lo = p.getLongitudeE6()
+				int lat = p.getLatitudeE6()
 						+ (randomCordGenerator.nextInt(radius * 2000) - (radius * 1000));
-				int la = p.getLatitudeE6()
+				int lon = p.getLongitudeE6()
 						+ (randomCordGenerator.nextInt(radius * 2000) - (radius * 1000));
-				GeoPoint point = new GeoPoint(la, lo);
+				GeoPoint point = new GeoPoint(lat, lon);
 				gP[flags] = point;
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
 			};
-			mapOverlays.clear();
-			mapOverlays.add(myLocationOverlay);
+		
 			mapOverlays.add(itemizedoverlay);
 			mapView.postInvalidate();
 		}
@@ -194,8 +198,8 @@ public class PreviewActivity extends MapActivity {
 		myLocationOverlay.runOnFirstFix(new Runnable() {
 			public void run() {
 				p = myLocationOverlay.getMyLocation();
-				mc.animateTo(p);
-				mc.setZoom(17);
+				mController.animateTo(p);
+				mController.setZoom(17);
 				markers();
 			}
 		});

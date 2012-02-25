@@ -1,10 +1,19 @@
 package app.example.com;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -25,6 +34,11 @@ public class SummaryActivity extends MapActivity {
 	int totalDistance;
 	int averageSpeed;
 	int numberOfFlags;
+	MapView mapView;
+	MapController mController;
+	List<Overlay> mapOverlays;
+	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
+
 	
 	private void saveIntToMyPrefs(String key, int value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
@@ -94,6 +108,31 @@ public class SummaryActivity extends MapActivity {
 		TextView flag_text = (TextView) findViewById(R.id.No_of_flags);
 		String buff[] = flags.split(" ");
 		flag_text.setText("No of flags: " + buff[1]);
+		
+		final ArrayList<ParcelableGeoPoint> arrayOfParcebleGeoPoints = getIntent()
+				.getParcelableArrayListExtra("geoPoints");
+
+		for (ParcelableGeoPoint p : arrayOfParcebleGeoPoints) {
+			points.add(p.getGeoPoint());
+		}
+		
+		Drawable drawable = this.getResources().getDrawable(
+				R.drawable.map_pin_24);
+		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
+		mapView = (MapView) findViewById(R.id.mapview_summary);
+		mapView.setBuiltInZoomControls(true);
+		mController = mapView.getController();
+		mapOverlays = mapView.getOverlays();
+		
+		int numOfPoints = points.size();
+		for (int i = 0; i < numOfPoints; i++) {
+			GeoPoint point = points.get(i);
+			OverlayItem overlayitem = new OverlayItem(point, null, null);
+			itemizedoverlay.addOverlay(overlayitem);
+		};
+	
+		mapOverlays.add(itemizedoverlay);
+		mapView.postInvalidate();
 		
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {

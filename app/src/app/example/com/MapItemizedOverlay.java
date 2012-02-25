@@ -34,5 +34,9 @@ public class MapItemizedOverlay extends ItemizedOverlay {
 	public int size() {
 		  return mOverlays.size();
 	}
+	
+	public void clear(){
+		mOverlays.clear();
+	}
 
 }
