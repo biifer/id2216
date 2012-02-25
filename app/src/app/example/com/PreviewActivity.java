@@ -38,7 +38,17 @@ import com.google.android.maps.*;
 
 public class PreviewActivity extends MapActivity {
 
+	int flags;
 	SharedPreferences settings;
+	GeoPoint[] gP;
+	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
+	MapView mapView;
+	MapController mController;
+	MyLocationOverlay myLocationOverlay;
+	GeoPoint p;
+	List<Overlay> mapOverlays;
+
+	public static final String PREFS_NAME = "PrefsFile";
 
 	private String loadStringFromMyPrefs(String key) {
 		String defValue = "-1";
@@ -46,19 +56,7 @@ public class PreviewActivity extends MapActivity {
 		String value = settings.getString(key, defValue);
 		return value;
 	}
-
-	int flags;
-	GeoPoint[] gP;
-	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
-	MapView mapView;
-	MapController mController;
-	MyLocationOverlay myLocationOverlay;
-
-	public static final String PREFS_NAME = "PrefsFile"; // I filen sparar vi:
-															// time,
-															// averageSpeed,
-															// name, nrOfFLags,
-
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu2, menu);
@@ -113,8 +111,7 @@ public class PreviewActivity extends MapActivity {
 
 	}
 
-	GeoPoint p;
-	List<Overlay> mapOverlays;
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -138,12 +135,17 @@ public class PreviewActivity extends MapActivity {
 		start.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				/*
+				 * Clears the geoPoints list.
+				 */
 				geoPoints.clear();
+				/*
+				 * Adds the list again in order to pass them to the next activity.
+				 */
 				for (int i = 0; i < gP.length; i++) {
 					geoPoints.add(new ParcelableGeoPoint(gP[i]));
 				}
-
-				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 				myIntent.putExtra("geoPoints", geoPoints);
 				v.getContext().startActivity(myIntent);
@@ -186,8 +188,7 @@ public class PreviewActivity extends MapActivity {
 				OverlayItem overlayitem = new OverlayItem(point, null, null);
 				itemizedoverlay.addOverlay(overlayitem);
 			};
-		//	mapOverlays.clear();
-			
+		
 			mapOverlays.add(itemizedoverlay);
 			mapView.postInvalidate();
 		}

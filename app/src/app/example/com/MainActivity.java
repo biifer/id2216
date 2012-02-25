@@ -114,14 +114,16 @@ public class MainActivity extends MapActivity {
 		mapOverlays = mapView.getOverlays();
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
 		mapView.getOverlays().add(myLocationOverlay);
-		//Ivans kod
-		ArrayList<ParcelableGeoPoint> pointsExtra = getIntent()
+		
+		/*
+		 * not sure if final should be there but it's required by another method
+		 */
+		final ArrayList<ParcelableGeoPoint> arrayOfParcebleGeoPoints = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
 
-		for (ParcelableGeoPoint p : pointsExtra) {
+		for (ParcelableGeoPoint p : arrayOfParcebleGeoPoints) {
 			points.add(p.getGeoPoint());
 		}
-		//Slut Ivans kod
 		
 		int numOfPoints = points.size();
 		for (int i = 0; i < numOfPoints; i++) {
@@ -133,13 +135,9 @@ public class MainActivity extends MapActivity {
 		mapOverlays.add(itemizedoverlay);
 		mapView.postInvalidate();
 
-		
 		final Chronometer cm = (Chronometer) findViewById(R.id.chronometer);
 		cm.setBase(SystemClock.elapsedRealtime());
 		cm.start();
-
-
-
 
 		Button checkPoint = (Button) findViewById(R.id.checkpoint);
 		checkPoint.setOnClickListener(new OnClickListener() {
@@ -168,6 +166,7 @@ public class MainActivity extends MapActivity {
 				Intent myIntent = new Intent(v.getContext(),
 						SummaryActivity.class);
 				myIntent.putExtra("time", cm.getBase());
+				myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
 				v.getContext().startActivity(myIntent);
 			}
 		});
