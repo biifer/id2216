@@ -52,6 +52,7 @@ public class MainActivity extends MapActivity {
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	ArrayList<GeoPoint> notYetReachedPoints = new ArrayList<GeoPoint>();
+	ArrayList<ParcelableGeoPoint> visitedPoints = new ArrayList<ParcelableGeoPoint>();
 	MyLocationOverlay myLocationOverlay;
 	Location destLocation = new Location("destLoaction");
 	Location prevLocation = new Location("prevLocation");
@@ -177,6 +178,8 @@ public class MainActivity extends MapActivity {
 						SummaryActivity.class);
 				myIntent.putExtra("time", cm.getBase());
 				myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
+				myIntent.putExtra("visitedPoints", visitedPoints);
+
 				v.getContext().startActivity(myIntent);
 				finish();
 			}
@@ -208,6 +211,8 @@ public class MainActivity extends MapActivity {
 				double lon = location.getLongitude();
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
+				
+				visitedPoints.add(new ParcelableGeoPoint(point));
 
 				if (prevPoint != null) {
 					mapOverlays
@@ -295,6 +300,7 @@ public class MainActivity extends MapActivity {
 					myIntent.putExtra("time", cm.getBase());
 					myIntent.putExtra("totalDistance", totalDistance);
 					myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
+					myIntent.putExtra("visitedPoints", visitedPoints);
 
 					MainActivity.this.startActivity(myIntent);
 					finish();

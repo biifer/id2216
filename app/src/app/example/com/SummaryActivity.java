@@ -25,10 +25,15 @@ import android.widget.Toast;
 
 public class SummaryActivity extends MapActivity {
 
-	public static final String PREFS_NAME = "PrefsFile"; //I filen sparar vi: time, averageSpeed, name, nrOfFLags, distance, radius, nameOfUploader 
+	public static final String PREFS_NAME = "PrefsFile"; // I filen sparar vi:
+															// time,
+															// averageSpeed,
+															// name, nrOfFLags,
+															// distance, radius,
+															// nameOfUploader
 	SharedPreferences settings;
 	SharedPreferences.Editor editor;
-	
+
 	String name;
 	int totalTime;
 	int totalDistance;
@@ -38,50 +43,50 @@ public class SummaryActivity extends MapActivity {
 	MapController mController;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
+	ArrayList<GeoPoint> testPoints = new ArrayList<GeoPoint>();
 
-	
 	private void saveIntToMyPrefs(String key, int value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		editor = settings.edit();
 		editor.putInt(key, value);
 		editor.commit();
 	}
-	
+
 	private int loadIntFromMyPrefs(String key) {
 		int defValue = -1;
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		int value = settings.getInt(key, defValue);
 		return value;
 	}
-	
+
 	private void saveStringToMyPrefs(String key, String value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
-	    editor = settings.edit();
-	    editor.putString(key, value);
-	    editor.commit();
+		editor = settings.edit();
+		editor.putString(key, value);
+		editor.commit();
 	}
-	
+
 	private String loadStringFromMyPrefs(String key) {
 		String defValue = "-1";
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		String value = settings.getString(key, defValue);
-		return value;	
+		return value;
 	}
-	
+
 	private void saveBooleanToMyPrefs(String key, Boolean value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		editor = settings.edit();
 		editor.putBoolean(key, value);
 		editor.commit();
 	}
-	
+
 	private boolean loadBooleanFromMyPrefs(String key) {
 		boolean defValue = false;
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		boolean value = settings.getBoolean(key, defValue);
 		return value;
 	}
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -121,6 +126,8 @@ public class SummaryActivity extends MapActivity {
 		
 		final ArrayList<ParcelableGeoPoint> arrayOfParcebleGeoPoints = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
+		final ArrayList<ParcelableGeoPoint> arrayOfVisitedParcebleGeoPoints = getIntent()
+				.getParcelableArrayListExtra("visitedPoints");
 
 		for (ParcelableGeoPoint p : arrayOfParcebleGeoPoints) {
 			points.add(p.getGeoPoint());
@@ -143,7 +150,26 @@ public class SummaryActivity extends MapActivity {
 	
 		mapOverlays.add(itemizedoverlay);
 		mapView.postInvalidate();
+		/*
+		 *	converting the parcableGeoPoints to normal GeoPoints 
+		 *
+		 *some late night edits
+		 */
+		for (ParcelableGeoPoint parcelableGeoPoint : arrayOfVisitedParcebleGeoPoints) {
+			testPoints.add(parcelableGeoPoint.getGeoPoint());
+			
+		}
+		GeoPoint prevPoint = testPoints.get(0);
+		for (int i = 1; i < testPoints.size(); i++) {
+			
+			GeoPoint point = testPoints.get(i);
 		
+			mapOverlays.add(new RouteOverlay(prevPoint, point, 0xFF0000));
+			
+		}
+		/*
+		 * end of late night edits
+		 */
 		Button menu = (Button)findViewById(R.id.menu_button);
         menu.setOnClickListener(new OnClickListener() {
 			
@@ -172,7 +198,7 @@ public class SummaryActivity extends MapActivity {
 			}
 		});
 	}
-	
+
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
