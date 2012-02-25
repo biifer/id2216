@@ -56,7 +56,7 @@ public class MainActivity extends MapActivity {
 	Location destLocation = new Location("destLoaction");
 	Location prevLocation = new Location("prevLocation");
 	float distanceToNearestPoint = 9000;
-	float speed, distance, totalDistance = 0;
+	float speed, distance, totalDistance = -1;
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -208,51 +208,41 @@ public class MainActivity extends MapActivity {
 				double lon = location.getLongitude();
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
-				
+
 				if (prevPoint != null) {
-					mapOverlays.add(new RouteOverlay(prevPoint, point, 0xFF0000));
+					mapOverlays
+							.add(new RouteOverlay(prevPoint, point, 0xFF0000));
 				}
-				
-				if(prevLocation != null){
-					totalDistance = totalDistance + location.distanceTo(prevLocation);
+
+				if (totalDistance == -1) {
+					totalDistance = 0;
+				} else {
+					totalDistance = totalDistance
+							+ location.distanceTo(prevLocation);
 				}
 				prevLocation = location;
 				prevPoint = point;
-							
+
 				mController.animateTo(point);
-				
+
 				/*
-				 * not really tested yet
+				 * This for-loop checks at every GPS update if any flag is
+				 * within reach.
 				 */
-								
-				TextView distance_to_point = (TextView) findViewById(R.id.distance_to_point);
-				distance_to_point.setText("Distance to nearest point: " + distanceToNearestPoint + "m");
-
-				speed = location.getSpeed();
-				TextView speed_text = (TextView) findViewById(R.id.speed);
-				speed_text.setText("Speed: " + speed + "m/s");
-
-				TextView totalDistance_text = (TextView) findViewById(R.id.total_distance);
-				totalDistance_text.setText("Total distance: " + totalDistance);
-
-				
 				for (int i = 0; i < notYetReachedPoints.size(); i++) {
-
-					float latitude = (float) (notYetReachedPoints.get(i)
-							.getLatitudeE6() / 1E6);
-					float longitude = (float) (notYetReachedPoints.get(i)
-							.getLongitudeE6() / 1E6);
-
-					destLocation.setLatitude(latitude);
-					destLocation.setLongitude(longitude);
+					destLocation.reset();
+					destLocation.setLatitude((float) (notYetReachedPoints
+							.get(i).getLatitudeE6() / 1E6));
+					destLocation.setLongitude((float) (notYetReachedPoints.get(
+							i).getLongitudeE6() / 1E6));
 					distance = location.distanceTo(destLocation);
 					if (distanceToNearestPoint > distance) {
 						distanceToNearestPoint = distance;
-					}		
-					
+					}
+
 					/*
-					 * user catches a flag if current position is within 1000m
-					 * of a flag
+					 * user catches a flag if current position is within 50m of
+					 * a flag
 					 */
 					if (distance < 50) {
 						/*
@@ -266,25 +256,40 @@ public class MainActivity extends MapActivity {
 						/*
 						 * remove the reached point from the list
 						 */
-						
+
 						notYetReachedPoints.remove(i);
 
 						/*
-						 * change color of flag
+						 * change color of flag (code not complete)
 						 */
 
 					}
 
 				}
+
+				/*
+				 * not really tested yet
+				 */
+				TextView distance_to_point = (TextView) findViewById(R.id.distance_to_point);
+				distance_to_point.setText("Distance to nearest point: "
+						+ distanceToNearestPoint + "m");
+
+				speed = location.getSpeed();
+				TextView speed_text = (TextView) findViewById(R.id.speed);
+				speed_text.setText("Speed: " + speed + "m/s");
+
+				TextView totalDistance_text = (TextView) findViewById(R.id.total_distance);
+				totalDistance_text.setText("Total distance: " + totalDistance);
+
 				if (notYetReachedPoints.isEmpty()) {
-					
+
 					/*
-					 * This is part of a strange bug-fix
-					 * the location listener does not shut off when the "finish()" method is called
+					 * This is part of a strange bug-fix the location listener
+					 * does not shut off when the "finish()" method is called
 					 */
 					lManager.removeUpdates(locationListener);
 					lManager = null;
-					
+
 					Intent myIntent = new Intent(MainActivity.this,
 							SummaryActivity.class);
 					myIntent.putExtra("time", cm.getBase());
