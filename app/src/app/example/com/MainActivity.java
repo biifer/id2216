@@ -205,26 +205,11 @@ public class MainActivity extends MapActivity {
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
 				
-				if (prevLocation == null) {
-					/*
-					 * this is the first location fix
-					 */
-					mapOverlays.add(new RouteOverlay(point, point, 0xFF0000));
-					
-				}else{
-					mapOverlays.add(new RouteOverlay(prevLocation, point, 0xFF0000));	
-					
+				if (prevLocation != null) {
+					mapOverlays.add(new RouteOverlay(prevLocation, point, 0xFF0000));
 				}
 				prevLocation = point;
-				
-				/*
-				if(currentLocation == null) currentLocation = point;
-				if(currentLocation != point){
-					mapOverlays.add(new RouteOverlay(currentLocation, point, 0xFF0000));
-				}
-				*/
-				
-				
+							
 				mController.animateTo(point);
 				//mapOverlays.add(new RouteOverlay(point, new GeoPoint(59,17), 0xFF0000));
 
@@ -245,7 +230,7 @@ public class MainActivity extends MapActivity {
 					 * user catches a flag if current position is within 1000m
 					 * of a flag
 					 */
-					if (distance < 1000) {
+					if (distance < 100) {
 						/*
 						 * checkpoint reached
 						 */
