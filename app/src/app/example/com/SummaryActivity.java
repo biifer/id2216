@@ -161,11 +161,9 @@ public class SummaryActivity extends MapActivity {
 		}
 		GeoPoint prevPoint = testPoints.get(0);
 		for (int i = 1; i < testPoints.size(); i++) {
-			
 			GeoPoint point = testPoints.get(i);
-		
 			mapOverlays.add(new RouteOverlay(prevPoint, point, 0xFF0000));
-			
+			prevPoint = point;
 		}
 		/*
 		 * end of late night edits

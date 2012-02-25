@@ -123,6 +123,7 @@ public class MainActivity extends MapActivity {
 		mapOverlays = mapView.getOverlays();
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
 		mapView.getOverlays().add(myLocationOverlay);
+		visitedPoints.clear();
 
 		/*
 		 * not sure if final should be there but it's required by another method
@@ -211,7 +212,7 @@ public class MainActivity extends MapActivity {
 				double lon = location.getLongitude();
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
-				
+
 				visitedPoints.add(new ParcelableGeoPoint(point));
 
 				if (prevPoint != null) {
