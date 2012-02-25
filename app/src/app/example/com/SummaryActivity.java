@@ -75,7 +75,7 @@ public class SummaryActivity extends MapActivity {
 		Bundle extras = getIntent().getExtras();
 		long time = extras.getLong("time");
 		long timer = SystemClock.elapsedRealtime() -time;
-		long hours = (timer/60000);
+		long hours = (timer/3600000);
 		long minutes=(timer/1000)/60;
 		long seconds=(timer/1000)%60;
 		TextView total = (TextView) findViewById(R.id.total_time);
