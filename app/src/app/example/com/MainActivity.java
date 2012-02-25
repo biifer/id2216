@@ -49,6 +49,7 @@ public class MainActivity extends MapActivity {
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	MyLocationOverlay myLocationOverlay;
+	Location destLocation = new Location("destLoaction");
 	float distance;
 
 
@@ -202,13 +203,16 @@ public class MainActivity extends MapActivity {
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
 				mController.animateTo(point);
-				Location destLocation = null;
+				
 
 				for (int i = 0; i < points.size(); i++) {
 					
-					destLocation.reset();					
-					destLocation.setLatitude((double)points.get(i).getLatitudeE6());
-					destLocation.setLongitude((double)points.get(i).getLongitudeE6());
+					float latitude = (float) (points.get(i).getLatitudeE6() / 1E6);
+					float longitude = (float) (points.get(i).getLongitudeE6() / 1E6);
+
+					destLocation.setLatitude(latitude);
+					destLocation.setLongitude(longitude);
+					
 					distance = location.distanceTo(destLocation);
 					/*
 					 * user catches a flag if current position is within 10m of a flag
