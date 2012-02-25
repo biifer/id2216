@@ -96,7 +96,7 @@ public class SummaryActivity extends MapActivity {
 		String m = null,s = null,h=null;
 
 		/*
-		 * Inte alls sŠker pŒ om det stŠmmer, men den skriver ut lite data vilket ganska sŒ najs.
+		 * Inte alls sï¿½ker pï¿½ om det stï¿½mmer, men den skriver ut lite data vilket ganska sï¿½ najs.
 		 */
 		float totalDistance = extras.getFloat("totalDistance");
 		TextView totalDistance_text = (TextView) findViewById(R.id.total_distance);
@@ -173,22 +173,6 @@ public class SummaryActivity extends MapActivity {
 		});
 	}
 	
-	public void setTotalTime (int t) {
-		
-	}
-	
-	public void setTotalDistance (int d) {
-		
-	}
-	
-	public void setAverageSpeed (int s) {
-		
-	}
-	
-	public void setNumberOfFlags (int n) {
-		
-	}
-
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
