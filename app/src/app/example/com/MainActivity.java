@@ -21,6 +21,8 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.Menu;
@@ -46,14 +48,15 @@ public class MainActivity extends MapActivity {
 	LinearLayout linerarLayout;
 	MapView mapView;
 	MapController mController;
-	GeoPoint p, prevLocation = null;
+	GeoPoint p, prevPoint = null;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	ArrayList<GeoPoint> notYetReachedPoints = new ArrayList<GeoPoint>();
 	MyLocationOverlay myLocationOverlay;
 	Location destLocation = new Location("destLoaction");
+	Location prevLocation = new Location("prevLocation");
 	float distanceToNearestPoint = 9000;
-	float distance;
+	float distance, totalDistance;
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -205,10 +208,15 @@ public class MainActivity extends MapActivity {
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
 				
-				if (prevLocation != null) {
-					mapOverlays.add(new RouteOverlay(prevLocation, point, 0xFF0000));
+				if (prevPoint != null) {
+					mapOverlays.add(new RouteOverlay(prevPoint, point, 0xFF0000));
 				}
-				prevLocation = point;
+				
+				if(prevLocation != null){
+					totalDistance =+ location.distanceTo(prevLocation);
+				}
+				prevLocation = location;
+				prevPoint = point;
 							
 				mController.animateTo(point);
 				//mapOverlays.add(new RouteOverlay(point, new GeoPoint(59,17), 0xFF0000));
@@ -242,6 +250,7 @@ public class MainActivity extends MapActivity {
 						/*
 						 * remove the reached point from the list
 						 */
+						
 						notYetReachedPoints.remove(i);
 
 						/*
@@ -267,6 +276,7 @@ public class MainActivity extends MapActivity {
 					Intent myIntent = new Intent(MainActivity.this,
 							SummaryActivity.class);
 					myIntent.putExtra("time", cm.getBase());
+					myIntent.putExtra("totalDistance", totalDistance);
 					myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
 
 					MainActivity.this.startActivity(myIntent);

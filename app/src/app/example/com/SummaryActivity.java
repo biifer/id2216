@@ -95,6 +95,20 @@ public class SummaryActivity extends MapActivity {
 		TextView total = (TextView) findViewById(R.id.total_time);
 		String m = null,s = null,h=null;
 
+		/*
+		 * Inte alls säker på om det stämmer, men den skriver ut lite data vilket ganska så najs.
+		 */
+		float totalDistance = extras.getFloat("totalDistance");
+		TextView totalDistance_text = (TextView) findViewById(R.id.total_distance);
+		totalDistance_text.setText("Total distance: " + totalDistance);
+		
+		/*
+		 * Här får du lite kod alfred! :D
+		 * 
+		TextView average_speed_text = (TextView) findViewById(R.id.average_speed);
+		totalDistance_text.setText("Total distance: " + totalDistance);
+
+		 */
 		if(minutes < 10 ) m = "0" + minutes;
 		else  m = minutes + "";
 		if(seconds < 10 ) s = "0" + seconds;
