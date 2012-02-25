@@ -57,7 +57,7 @@
             android:id="@+id/mapview_summary"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:apiKey="01OR_IsAMACagn-B9fS7Hd-vKsQvdSsm9zYLv7Q"
+            android:apiKey="01OR_IsAMACZCH-mysHjZxDFqplmDnq8x__4FQw"
             android:clickable="true" >
             <!--
             emulator-key

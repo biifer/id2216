@@ -56,7 +56,7 @@ public class MainActivity extends MapActivity {
 	Location destLocation = new Location("destLoaction");
 	Location prevLocation = new Location("prevLocation");
 	float distanceToNearestPoint = 9000;
-	float distance, totalDistance = 0;
+	float speed, distance, totalDistance = 0;
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -214,14 +214,28 @@ public class MainActivity extends MapActivity {
 				}
 				
 				if(prevLocation != null){
-					totalDistance =+ location.distanceTo(prevLocation);
+					totalDistance = totalDistance + location.distanceTo(prevLocation);
 				}
 				prevLocation = location;
 				prevPoint = point;
 							
 				mController.animateTo(point);
-				//mapOverlays.add(new RouteOverlay(point, new GeoPoint(59,17), 0xFF0000));
+				
+				/*
+				 * not really tested yet
+				 */
+								
+				TextView distance_to_point = (TextView) findViewById(R.id.distance_to_point);
+				distance_to_point.setText("Distance to nearest point: " + distanceToNearestPoint + "m");
 
+				speed = location.getSpeed();
+				TextView speed_text = (TextView) findViewById(R.id.speed);
+				speed_text.setText("Speed: " + speed + "m/s");
+
+				TextView totalDistance_text = (TextView) findViewById(R.id.total_distance);
+				totalDistance_text.setText("Total distance: " + totalDistance);
+
+				
 				for (int i = 0; i < notYetReachedPoints.size(); i++) {
 
 					float latitude = (float) (notYetReachedPoints.get(i)
@@ -234,15 +248,13 @@ public class MainActivity extends MapActivity {
 					distance = location.distanceTo(destLocation);
 					if (distanceToNearestPoint > distance) {
 						distanceToNearestPoint = distance;
-						TextView distance_to_point = (TextView) findViewById(R.id.distance_to_point);
-						distance_to_point.setText("Distance to nearest point: " + distanceToNearestPoint + "m");
-
-					}
+					}		
+					
 					/*
 					 * user catches a flag if current position is within 1000m
 					 * of a flag
 					 */
-					if (distance < 100) {
+					if (distance < 50) {
 						/*
 						 * checkpoint reached
 						 */
