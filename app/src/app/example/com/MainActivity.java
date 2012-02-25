@@ -40,8 +40,8 @@ public class MainActivity extends MapActivity {
 	private LocationListener locationListener;
 	int averageSpeed;
 	int time;
-	public static final String PREFS_NAME = "PrefsFile"; 
-	
+	public static final String PREFS_NAME = "PrefsFile";
+
 	LinearLayout linerarLayout;
 	MapView mapView;
 	MapController mController;
@@ -49,7 +49,7 @@ public class MainActivity extends MapActivity {
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	MyLocationOverlay myLocationOverlay;
-	
+
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu2, menu);
@@ -114,7 +114,7 @@ public class MainActivity extends MapActivity {
 		mapOverlays = mapView.getOverlays();
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
 		mapView.getOverlays().add(myLocationOverlay);
-		
+
 		/*
 		 * not sure if final should be there but it's required by another method
 		 */
@@ -124,14 +124,15 @@ public class MainActivity extends MapActivity {
 		for (ParcelableGeoPoint p : arrayOfParcebleGeoPoints) {
 			points.add(p.getGeoPoint());
 		}
-		
+
 		int numOfPoints = points.size();
 		for (int i = 0; i < numOfPoints; i++) {
 			GeoPoint point = points.get(i);
 			OverlayItem overlayitem = new OverlayItem(point, null, null);
 			itemizedoverlay.addOverlay(overlayitem);
-		};
-		
+		}
+		;
+
 		mapOverlays.add(itemizedoverlay);
 		mapView.postInvalidate();
 
@@ -191,14 +192,37 @@ public class MainActivity extends MapActivity {
 
 			}
 
+			@SuppressWarnings("null")
 			public void onLocationChanged(Location location) {
 				// TODO Auto-generated method stub
 				double lat = location.getLatitude();
 				double lon = location.getLongitude();
-				GeoPoint point = new GeoPoint((int)(lat * 1e6),
-                        (int)(lon * 1e6));
-				mController.animateTo(point);				
-								
+				GeoPoint point = new GeoPoint((int) (lat * 1e6),
+						(int) (lon * 1e6));
+				mController.animateTo(point);
+
+				float distance;
+				Location destLocation = null;
+				Location currLocation = null;
+				currLocation.setLatitude(point.getLatitudeE6());
+				currLocation.setLongitude(point.getLongitudeE6());
+
+				for (int i = 0; i < points.size(); i++) {
+					destLocation.setLatitude(points.get(i).getLatitudeE6());
+					destLocation.setLongitude(points.get(i).getLongitudeE6());
+					distance = currLocation.distanceTo(destLocation);
+					/*
+					 * user catches a flag if current position is within 10m of a flag
+					 */
+					if (distance < 10) {
+						/*
+						 * checkpoint reached 
+						 * change color of flag
+						 */
+					}
+
+				}
+
 			}
 		};
 
