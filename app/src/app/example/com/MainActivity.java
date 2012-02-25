@@ -157,12 +157,10 @@ public class MainActivity extends MapActivity {
 				toast.show();
 			}
 		});
-		
-	
 
 		Button summary = (Button) findViewById(R.id.summary);
 		summary.setOnClickListener(new OnClickListener() {
-	
+
 			public void onClick(View v) {
 
 				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -207,65 +205,66 @@ public class MainActivity extends MapActivity {
 						(int) (lon * 1e6));
 				mController.animateTo(point);
 
-				if (notYetReachedPoints.isEmpty()) {
+				for (int i = 0; i < notYetReachedPoints.size(); i++) {
+
+					float latitude = (float) (notYetReachedPoints.get(i)
+							.getLatitudeE6() / 1E6);
+					float longitude = (float) (notYetReachedPoints.get(i)
+							.getLongitudeE6() / 1E6);
+
+					destLocation.setLatitude(latitude);
+					destLocation.setLongitude(longitude);
+					distance = location.distanceTo(destLocation);
+					if (distanceToNearestPoint > distance) {
+						distanceToNearestPoint = distance;
+					}
 					/*
-					Context context = getApplicationContext();
-					SharedPreferences settings = getSharedPreferences(
-							PREFS_NAME, 0);
-					SharedPreferences.Editor editor = settings.edit();
-					editor.putInt("time", time);
-					editor.putInt("averageSpeed", averageSpeed);
-
-					// TODO Auto-generated method stub
-					Intent myIntent = new Intent(context, SummaryActivity.class);
-					//myIntent.putExtra("time", cm.getBase());
-					myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
-					context.startActivity(myIntent);
-					*/
-				} else {
-
-					for (int i = 0; i < notYetReachedPoints.size(); i++) {
-
-						float latitude = (float) (notYetReachedPoints.get(i)
-								.getLatitudeE6() / 1E6);
-						float longitude = (float) (notYetReachedPoints.get(i)
-								.getLongitudeE6() / 1E6);
-
-						destLocation.setLatitude(latitude);
-						destLocation.setLongitude(longitude);
-						distance = location.distanceTo(destLocation);
-						if (distanceToNearestPoint > distance) {
-							distanceToNearestPoint = distance;
-						}
+					 * user catches a flag if current position is within 1000m
+					 * of a flag
+					 */
+					if (distance < 1000) {
 						/*
-						 * user catches a flag if current position is within
-						 * 1000m of a flag
+						 * checkpoint reached
 						 */
-						if (distance < 1000) {
-							/*
-							 * checkpoint reached
-							 */
-							Context context = getApplicationContext();
-							CharSequence text = "Checkpoint reached!";
-							int duration = Toast.LENGTH_SHORT;
-							Toast toast = Toast.makeText(context, text,
-									duration);
-							toast.show();
-							/*
-							 * remove the reached point from the list
-							 */
-							notYetReachedPoints.remove(i);
+						Context context = getApplicationContext();
+						CharSequence text = "Checkpoint reached!";
+						int duration = Toast.LENGTH_SHORT;
+						Toast toast = Toast.makeText(context, text, duration);
+						toast.show();
+						/*
+						 * remove the reached point from the list
+						 */
+						notYetReachedPoints.remove(i);
 
-							/*
-							 * change color of flag
-							 */
-
-						}
+						/*
+						 * change color of flag
+						 */
 
 					}
-				}
 
+				}
+				if (notYetReachedPoints.isEmpty()) {
+					/*
+					 * Context context = getApplicationContext();
+					 * SharedPreferences settings = getSharedPreferences(
+					 * PREFS_NAME, 0); SharedPreferences.Editor editor =
+					 * settings.edit(); editor.putInt("time", time);
+					 * editor.putInt("averageSpeed", averageSpeed);
+					 * 
+					 * // TODO Auto-generated method stub Intent myIntent = new
+					 * Intent(context, SummaryActivity.class); //
+					 * myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
+					 * context.startActivity(myIntent);
+					 */
+					Intent myIntent = new Intent(MainActivity.this,
+							SummaryActivity.class);
+					myIntent.putExtra("time", cm.getBase());
+					myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
+
+					MainActivity.this.startActivity(myIntent);
+				}
 			}
+
 		};
 
 		lManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
