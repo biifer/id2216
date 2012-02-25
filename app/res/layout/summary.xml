@@ -57,8 +57,15 @@
             android:id="@+id/mapview_summary"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:apiKey="0RUIqaVwf2_lIiBshPlEYfIGBXIJ4HDzaVZ2jdw"
+            android:apiKey="01OR_IsAMACagn-B9fS7Hd-vKsQvdSsm9zYLv7Q"
             android:clickable="true" >
+            <!--
+            emulator-key
+            android:apiKey="01OR_IsAMACZCH-mysHjZxDFqplmDnq8x__4FQw"
+            
+            private-key
+            android:apiKey="01OR_IsAMACagn-B9fS7Hd-vKsQvdSsm9zYLv7Q"
+            -->
         </com.google.android.maps.MapView>
     </RelativeLayout>
 

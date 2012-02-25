@@ -46,7 +46,7 @@ public class MainActivity extends MapActivity {
 	LinearLayout linerarLayout;
 	MapView mapView;
 	MapController mController;
-	GeoPoint p, currentLocation = null;
+	GeoPoint p, prevLocation = null;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	ArrayList<GeoPoint> notYetReachedPoints = new ArrayList<GeoPoint>();
@@ -205,13 +205,28 @@ public class MainActivity extends MapActivity {
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
 				
+				if (prevLocation == null) {
+					/*
+					 * this is the first location fix
+					 */
+					mapOverlays.add(new RouteOverlay(point, point, 0xFF0000));
+					
+				}else{
+					mapOverlays.add(new RouteOverlay(prevLocation, point, 0xFF0000));	
+					
+				}
+				prevLocation = point;
+				
+				/*
 				if(currentLocation == null) currentLocation = point;
 				if(currentLocation != point){
 					mapOverlays.add(new RouteOverlay(currentLocation, point, 0xFF0000));
 				}
+				*/
+				
 				
 				mController.animateTo(point);
-				mapOverlays.add(new RouteOverlay(point, new GeoPoint(59,17), 0xFF0000));
+				//mapOverlays.add(new RouteOverlay(point, new GeoPoint(59,17), 0xFF0000));
 
 				for (int i = 0; i < notYetReachedPoints.size(); i++) {
 
