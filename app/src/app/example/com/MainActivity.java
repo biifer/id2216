@@ -15,6 +15,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -45,7 +46,7 @@ public class MainActivity extends MapActivity {
 	LinearLayout linerarLayout;
 	MapView mapView;
 	MapController mController;
-	GeoPoint p;
+	GeoPoint p, currentLocation = null;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	ArrayList<GeoPoint> notYetReachedPoints = new ArrayList<GeoPoint>();
@@ -205,7 +206,14 @@ public class MainActivity extends MapActivity {
 				double lon = location.getLongitude();
 				GeoPoint point = new GeoPoint((int) (lat * 1e6),
 						(int) (lon * 1e6));
+				
+				if(currentLocation == null) currentLocation = point;
+				if(currentLocation != point){
+					mapOverlays.add(new RouteOverlay(currentLocation, point, 0xFF0000));
+				}
+				
 				mController.animateTo(point);
+				mapOverlays.add(new RouteOverlay(point, new GeoPoint(59,17), 0xFF0000));
 
 				if (notYetReachedPoints.isEmpty()) {
 					/*
