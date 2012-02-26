@@ -141,6 +141,7 @@ public class PreviewActivity extends MapActivity {
 				/*
 				 * Clears the geoPoints list.
 				 */
+				if(p != null){
 				geoPoints.clear();
 				/*
 				 * Adds the list again in order to pass them to the next activity.
@@ -152,6 +153,7 @@ public class PreviewActivity extends MapActivity {
 				myIntent.putExtra("geoPoints", geoPoints);
 				myIntent.putExtra("mainPoint",mainPoint);
 				v.getContext().startActivity(myIntent);
+				}
 			}
 		});
 
