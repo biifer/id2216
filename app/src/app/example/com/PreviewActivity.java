@@ -42,6 +42,7 @@ public class PreviewActivity extends MapActivity {
 	SharedPreferences settings;
 	GeoPoint[] gP;
 	ArrayList<ParcelableGeoPoint> geoPoints = new ArrayList<ParcelableGeoPoint>();
+	ParcelableGeoPoint mainPoint;
 	MapView mapView;
 	MapController mController;
 	MyLocationOverlay myLocationOverlay;
@@ -132,6 +133,7 @@ public class PreviewActivity extends MapActivity {
 		mapView.postInvalidate();
 
 		Button start = (Button) findViewById(R.id.start_button);
+		
 		start.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -148,6 +150,7 @@ public class PreviewActivity extends MapActivity {
 				}
 				Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 				myIntent.putExtra("geoPoints", geoPoints);
+				myIntent.putExtra("mainPoint",mainPoint);
 				v.getContext().startActivity(myIntent);
 			}
 		});
@@ -201,6 +204,7 @@ public class PreviewActivity extends MapActivity {
 				mController.animateTo(p);
 				mController.setZoom(17);
 				markers();
+				mainPoint = new ParcelableGeoPoint( p);
 			}
 		});
 

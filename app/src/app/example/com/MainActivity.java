@@ -59,7 +59,7 @@ public class MainActivity extends MapActivity {
 	float distanceToNearestPoint = 9000;
 	float speed, distance, totalDistance = -1;
 	Drawable icon; 
-	
+	ParcelableGeoPoint mainPoint;
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu2, menu);
@@ -130,7 +130,8 @@ public class MainActivity extends MapActivity {
 		 */
 		final ArrayList<ParcelableGeoPoint> arrayOfParcebleGeoPoints = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
-
+		Bundle extras = getIntent().getExtras();
+		mainPoint= extras.getParcelable("mainPoint");
 		for (ParcelableGeoPoint p : arrayOfParcebleGeoPoints) {
 			points.add(p.getGeoPoint());
 			notYetReachedPoints.add(p.getGeoPoint());
@@ -180,7 +181,7 @@ public class MainActivity extends MapActivity {
 				myIntent.putExtra("time", cm.getBase());
 				myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
 				myIntent.putExtra("visitedPoints", visitedPoints);
-
+				myIntent.putExtra("mainPoint",mainPoint);
 				v.getContext().startActivity(myIntent);
 				finish();
 			}
@@ -305,6 +306,7 @@ public class MainActivity extends MapActivity {
 					myIntent.putExtra("totalDistance", totalDistance);
 					myIntent.putExtra("geoPoints", arrayOfParcebleGeoPoints);
 					myIntent.putExtra("visitedPoints", visitedPoints);
+					myIntent.putExtra("mainPoint",mainPoint);
 
 					MainActivity.this.startActivity(myIntent);
 					finish();

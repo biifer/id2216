@@ -39,7 +39,8 @@ public class SummaryActivity extends MapActivity {
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
 	ArrayList<GeoPoint> routePoints = new ArrayList<GeoPoint>();
-
+	ParcelableGeoPoint mainPoint;
+	
 	private void saveIntToMyPrefs(String key, int value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
 		editor = settings.edit();
@@ -87,6 +88,7 @@ public class SummaryActivity extends MapActivity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.summary);
 		Bundle extras = getIntent().getExtras();
+
 		long time = extras.getLong("time");
 		long timer = SystemClock.elapsedRealtime() - time;
 		long hours = (timer / 3600000);
@@ -146,6 +148,9 @@ public class SummaryActivity extends MapActivity {
 		mController = mapView.getController();
 		mapOverlays = mapView.getOverlays();
 
+		mainPoint= extras.getParcelable("mainPoint");	
+		mController.animateTo(mainPoint.getGeoPoint());
+		
 		int numOfPoints = points.size();
 		for (int i = 0; i < numOfPoints; i++) {
 			GeoPoint point = points.get(i);
