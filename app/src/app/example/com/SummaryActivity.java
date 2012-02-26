@@ -139,7 +139,7 @@ public class SummaryActivity extends MapActivity {
 		}
 
 		Drawable drawable = this.getResources().getDrawable(
-				R.drawable.map_pin_24);
+				R.drawable.map_pin_24_green);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
 		mapView = (MapView) findViewById(R.id.mapview_summary);
 		mapView.setBuiltInZoomControls(true);

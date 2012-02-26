@@ -58,7 +58,8 @@ public class MainActivity extends MapActivity {
 	Location prevLocation = new Location("prevLocation");
 	float distanceToNearestPoint = 9000;
 	float speed, distance, totalDistance = -1;
-
+	Drawable icon; 
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu2, menu);
@@ -116,7 +117,7 @@ public class MainActivity extends MapActivity {
 		setContentView(R.layout.main);
 		Drawable drawable = this.getResources().getDrawable(
 				R.drawable.map_pin_24);
-		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
+		final MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
 		mapView = (MapView) findViewById(R.id.mapviewMain);
 		mapView.setBuiltInZoomControls(true);
 		mController = mapView.getController();
@@ -124,7 +125,6 @@ public class MainActivity extends MapActivity {
 		myLocationOverlay = new MyLocationOverlay(this, mapView);
 		mapView.getOverlays().add(myLocationOverlay);
 		visitedPoints.clear();
-
 		/*
 		 * not sure if final should be there but it's required by another method
 		 */
@@ -141,8 +141,7 @@ public class MainActivity extends MapActivity {
 			GeoPoint point = points.get(i);
 			OverlayItem overlayitem = new OverlayItem(point, null, null);
 			itemizedoverlay.addOverlay(overlayitem);
-		}
-		;
+		};
 
 		mapOverlays.add(itemizedoverlay);
 		mapView.postInvalidate();
@@ -151,16 +150,17 @@ public class MainActivity extends MapActivity {
 		cm.setBase(SystemClock.elapsedRealtime());
 		cm.start();
 
+		
+
+		icon = this.getResources().getDrawable(R.drawable.map_pin_24_green);
+		icon.setBounds(
+		    0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), 
+		    icon.getIntrinsicWidth() / 2, 0);
 		Button checkPoint = (Button) findViewById(R.id.checkpoint);
 		checkPoint.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Context context = getApplicationContext();
-				CharSequence text = "Checkpoint";
-				int duration = Toast.LENGTH_LONG;
-				Toast toast = Toast.makeText(context, text, duration);
-				toast.show();
 			}
 		});
 
@@ -262,7 +262,10 @@ public class MainActivity extends MapActivity {
 						/*
 						 * remove the reached point from the list
 						 */
-
+						for(int a=0;a<itemizedoverlay.size();a++){
+						if(notYetReachedPoints.get(i).equals(itemizedoverlay.getItem(a).getPoint()))
+						itemizedoverlay.getItem(a).setMarker(icon);}
+						
 						notYetReachedPoints.remove(i);
 
 						/*
