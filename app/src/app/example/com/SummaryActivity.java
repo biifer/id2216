@@ -25,12 +25,7 @@ import android.widget.Toast;
 
 public class SummaryActivity extends MapActivity {
 
-	public static final String PREFS_NAME = "PrefsFile"; // I filen sparar vi:
-															// time,
-															// averageSpeed,
-															// name, nrOfFLags,
-															// distance, radius,
-															// nameOfUploader
+	public static final String PREFS_NAME = "PrefsFile";
 	SharedPreferences settings;
 	SharedPreferences.Editor editor;
 
@@ -43,7 +38,7 @@ public class SummaryActivity extends MapActivity {
 	MapController mController;
 	List<Overlay> mapOverlays;
 	ArrayList<GeoPoint> points = new ArrayList<GeoPoint>();
-	ArrayList<GeoPoint> testPoints = new ArrayList<GeoPoint>();
+	ArrayList<GeoPoint> routePoints = new ArrayList<GeoPoint>();
 
 	private void saveIntToMyPrefs(String key, int value) {
 		settings = getSharedPreferences(PREFS_NAME, 0);
@@ -90,40 +85,50 @@ public class SummaryActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.summary);	
+		setContentView(R.layout.summary);
 		Bundle extras = getIntent().getExtras();
 		long time = extras.getLong("time");
-		long timer = SystemClock.elapsedRealtime() -time;
-		long hours = (timer/3600000);
-		long minutes=(timer/1000)/60;
-		long seconds=(timer/1000)%60;
+		long timer = SystemClock.elapsedRealtime() - time;
+		long hours = (timer / 3600000);
+		long minutes = (timer / 1000) / 60;
+		long seconds = (timer / 1000) % 60;
 		TextView total = (TextView) findViewById(R.id.total_time);
-		String m = null,s = null,h=null;
+		String m = null, s = null, h = null;
 
 		/*
-		 * Inte alls s�ker p� om det st�mmer, men den skriver ut lite data vilket ganska s� najs.
+		 * Inte alls s�ker p� om det st�mmer, men den skriver ut lite data
+		 * vilket ganska s� najs.
 		 */
 		float totalDistance = extras.getFloat("totalDistance");
 		TextView totalDistance_text = (TextView) findViewById(R.id.total_distance);
 		totalDistance_text.setText("Total distance: " + totalDistance + "m");
-		
-		TextView average_speed_text = (TextView) findViewById(R.id.average_speed);
-		average_speed_text.setText("Average speed: " + totalDistance / seconds + "m/s");
 
-		if(minutes < 10 ) m = "0" + minutes;
-		else  m = minutes + "";
-		if(seconds < 10 ) s = "0" + seconds;
-		else s = seconds + "";
-		if(hours < 10) h = "0" + hours;
-		else h = hours + "";
-		if(hours == 0) total.setText("Total Time: " + m +":" + s);
-		else total.setText("Total Time: " +h+ ":" + m +":" + s);
-		
+		TextView average_speed_text = (TextView) findViewById(R.id.average_speed);
+		average_speed_text.setText("Average speed: " + totalDistance / seconds
+				+ "m/s");
+
+		if (minutes < 10)
+			m = "0" + minutes;
+		else
+			m = minutes + "";
+		if (seconds < 10)
+			s = "0" + seconds;
+		else
+			s = seconds + "";
+		if (hours < 10)
+			h = "0" + hours;
+		else
+			h = hours + "";
+		if (hours == 0)
+			total.setText("Total Time: " + m + ":" + s);
+		else
+			total.setText("Total Time: " + h + ":" + m + ":" + s);
+
 		String flags = loadStringFromMyPrefs("flags");
 		TextView flag_text = (TextView) findViewById(R.id.No_of_flags);
 		String buff[] = flags.split(" ");
 		flag_text.setText("No of flags: " + buff[1]);
-		
+
 		final ArrayList<ParcelableGeoPoint> arrayOfParcebleGeoPoints = getIntent()
 				.getParcelableArrayListExtra("geoPoints");
 		final ArrayList<ParcelableGeoPoint> arrayOfVisitedParcebleGeoPoints = getIntent()
@@ -132,7 +137,7 @@ public class SummaryActivity extends MapActivity {
 		for (ParcelableGeoPoint p : arrayOfParcebleGeoPoints) {
 			points.add(p.getGeoPoint());
 		}
-		
+
 		Drawable drawable = this.getResources().getDrawable(
 				R.drawable.map_pin_24);
 		MapItemizedOverlay itemizedoverlay = new MapItemizedOverlay(drawable);
@@ -140,56 +145,56 @@ public class SummaryActivity extends MapActivity {
 		mapView.setBuiltInZoomControls(true);
 		mController = mapView.getController();
 		mapOverlays = mapView.getOverlays();
-		
+
 		int numOfPoints = points.size();
 		for (int i = 0; i < numOfPoints; i++) {
 			GeoPoint point = points.get(i);
 			OverlayItem overlayitem = new OverlayItem(point, null, null);
 			itemizedoverlay.addOverlay(overlayitem);
-		};
-	
+		}
+		;
+
 		mapOverlays.add(itemizedoverlay);
 		mapView.postInvalidate();
 		/*
-		 *	converting the parcableGeoPoints to normal GeoPoints 
-		 *
-		 *some late night edits
+		 * converting the parableGeoPoints to normal points
 		 */
 		for (ParcelableGeoPoint parcelableGeoPoint : arrayOfVisitedParcebleGeoPoints) {
-			testPoints.add(parcelableGeoPoint.getGeoPoint());
-			
-		}
-		GeoPoint prevPoint = testPoints.get(0);
-		for (int i = 1; i < testPoints.size(); i++) {
-			GeoPoint point = testPoints.get(i);
-			mapOverlays.add(new RouteOverlay(prevPoint, point, 0xFF0000));
-			prevPoint = point;
+			routePoints.add(parcelableGeoPoint.getGeoPoint());
+
 		}
 		/*
-		 * end of late night edits
+		 * draws a line between all the visited points
 		 */
-		Button menu = (Button)findViewById(R.id.menu_button);
-        menu.setOnClickListener(new OnClickListener() {
-			
+		GeoPoint prevRoutePoint = routePoints.get(0);
+		for (int i = 1; i < routePoints.size(); i++) {
+			GeoPoint point = routePoints.get(i);
+			mapOverlays.add(new RouteOverlay(prevRoutePoint, point, 0xFF0000));
+			prevRoutePoint = point;
+		}
+
+		Button menu = (Button) findViewById(R.id.menu_button);
+		menu.setOnClickListener(new OnClickListener() {
+
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent myIntent = new Intent(v.getContext(), AppActivity.class);
 				v.getContext().startActivity(myIntent);
 			}
 		});
-        
-    	Button share = (Button)findViewById(R.id.share_button);
-        share.setOnClickListener(new OnClickListener() {
-			
+
+		Button share = (Button) findViewById(R.id.share_button);
+		share.setOnClickListener(new OnClickListener() {
+
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Context context = getApplicationContext();
-				
+
 				String distance = loadStringFromMyPrefs("distance");
 				String flags = loadStringFromMyPrefs("flags");
 				String radius = loadStringFromMyPrefs("radius");
 				String toastText = distance + "\n" + radius + "\n" + flags;
-				CharSequence text = toastText ;
+				CharSequence text = toastText;
 				int duration = Toast.LENGTH_LONG;
 				Toast toast = Toast.makeText(context, text, duration);
 				toast.show();
