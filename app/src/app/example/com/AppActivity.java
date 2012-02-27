@@ -118,28 +118,28 @@ AdapterView.OnItemSelectedListener {
 		setContentView(R.layout.normal);
 		Spinner radiusSpinner = (Spinner) findViewById(R.id.radiusSpinner);
 		Spinner flagSpinner = (Spinner) findViewById(R.id.flagSpinner);
-		Spinner distanceSpinner = (Spinner) findViewById(R.id.distanceSpinner);
+	//	Spinner distanceSpinner = (Spinner) findViewById(R.id.distanceSpinner);
 
 		radiusSpinner.setOnItemSelectedListener(this);
 		flagSpinner.setOnItemSelectedListener(this);
-		distanceSpinner.setOnItemSelectedListener(this);
+	//	distanceSpinner.setOnItemSelectedListener(this);
 
 		this.radiusAdapter = ArrayAdapter.createFromResource(this,
 				R.array.radius_spinner, android.R.layout.simple_spinner_item);
 		this.flagAdapter = ArrayAdapter.createFromResource(this,
 				R.array.flag_spinner, android.R.layout.simple_spinner_item);
-		this.distanceAdapter = ArrayAdapter.createFromResource(this,
-				R.array.distance_spinner, android.R.layout.simple_spinner_item);
+	/*	this.distanceAdapter = ArrayAdapter.createFromResource(this,
+				R.array.distance_spinner, android.R.layout.simple_spinner_item);*/
 
 		radiusAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		flagAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		distanceAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		/*distanceAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);*/
 		radiusSpinner.setAdapter(this.radiusAdapter);
 		flagSpinner.setAdapter(this.flagAdapter);
-		distanceSpinner.setAdapter(this.distanceAdapter);
+		//distanceSpinner.setAdapter(this.distanceAdapter);
 
 		Button generateMap = (Button) findViewById(R.id.generate_map_button);
 		generateMap.setOnClickListener(new OnClickListener() {
@@ -165,10 +165,10 @@ AdapterView.OnItemSelectedListener {
 		} else if (id == flagAdapter) {
 			String selected = parent.getItemAtPosition(pos).toString();
 			saveStringToMyPrefs("flags", selected);
-		} else if (id == distanceAdapter) {
+		}/* else if (id == distanceAdapter) {
 			String selected = parent.getItemAtPosition(pos).toString();
 			saveStringToMyPrefs("distance", selected);
-		}
+		}*/
 
 	}
 

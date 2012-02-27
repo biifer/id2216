@@ -49,21 +49,6 @@
             android:layout_below="@+id/textView3"
             android:prompt="@string/flags" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/flagSpinner"
-            android:text="Set the max distance you want to run." />
-
-        <Spinner
-            android:id="@+id/distanceSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView4"
-            android:prompt="@string/radius" />
-
         <Button
             android:id="@+id/generate_map_button"
             android:layout_width="210dp"

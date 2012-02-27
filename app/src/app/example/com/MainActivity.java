@@ -157,13 +157,13 @@ public class MainActivity extends MapActivity {
 		icon.setBounds(
 		    0 - icon.getIntrinsicWidth() / 2, 0 - icon.getIntrinsicHeight(), 
 		    icon.getIntrinsicWidth() / 2, 0);
-		Button checkPoint = (Button) findViewById(R.id.checkpoint);
+		/*Button checkPoint = (Button) findViewById(R.id.checkpoint);
 		checkPoint.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 			}
-		});
+		});*/
 
 		Button summary = (Button) findViewById(R.id.summary);
 		summary.setOnClickListener(new OnClickListener() {
