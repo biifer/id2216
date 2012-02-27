@@ -165,7 +165,7 @@ public class MainActivity extends MapActivity {
 			}
 		});*/
 
-		Button summary = (Button) findViewById(R.id.summary);
+	/*	Button summary = (Button) findViewById(R.id.summary);
 		summary.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -185,7 +185,7 @@ public class MainActivity extends MapActivity {
 				v.getContext().startActivity(myIntent);
 				finish();
 			}
-		});
+		});*/
 
 		lManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
