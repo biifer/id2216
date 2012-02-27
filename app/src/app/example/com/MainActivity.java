@@ -70,7 +70,7 @@ public class MainActivity extends MapActivity {
 	{
 	new AlertDialog.Builder(this)
 	.setIcon(android.R.drawable.ic_dialog_alert)
-	.setTitle("Exit")
+	.setTitle("End Game")
 	.setMessage("Are you sure you want to end the game?")
 	.setNegativeButton(android.R.string.cancel, null)
 	.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
