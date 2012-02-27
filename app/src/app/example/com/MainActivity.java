@@ -11,8 +11,11 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -60,6 +63,24 @@ public class MainActivity extends MapActivity {
 	float speed, distance, totalDistance = -1;
 	Drawable icon; 
 	ParcelableGeoPoint mainPoint;
+	
+	
+	
+	public void onBackPressed()
+	{
+	new AlertDialog.Builder(this)
+	.setIcon(android.R.drawable.ic_dialog_alert)
+	.setTitle("Exit")
+	.setMessage("Are you sure you want to end the game?")
+	.setNegativeButton(android.R.string.cancel, null)
+	.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	public void onClick(DialogInterface dialog, int which){
+	MainActivity.this.finish();
+	}
+	})
+	.show();
+	}
+	
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu2, menu);
