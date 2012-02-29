@@ -34,7 +34,7 @@ AdapterView.OnItemSelectedListener {
 			aboutDialog.setCancelable(true);
 
 			TextView text = (TextView) aboutDialog.findViewById(R.id.aboutText);
-			text.setText("I belive I can fly v1.02");
+			text.setText("Application done by Group6, v0.02 (beta)");
 
 			aboutDialog.show();
 			break;
@@ -45,7 +45,7 @@ AdapterView.OnItemSelectedListener {
 			helpDioalog.setCancelable(true);
 
 			text = (TextView) helpDioalog.findViewById(R.id.Text);
-			text.setText("This is the menu, why would you need help?");
+			text.setText("Click on the spinners to change the number of flags and the radius away from you they can spawn");
 
 			Button button = (Button) helpDioalog.findViewById(R.id.cancel);
 			button.setOnClickListener(new OnClickListener() {

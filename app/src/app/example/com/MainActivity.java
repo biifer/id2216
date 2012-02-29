@@ -97,7 +97,7 @@ public class MainActivity extends MapActivity {
 			aboutDialog.setCancelable(true);
 
 			TextView text = (TextView) aboutDialog.findViewById(R.id.aboutText);
-			text.setText("I belive I can fly v1.02");
+			text.setText("Application done by Group6, v0.02 (beta)");
 			aboutDialog.show();
 			break;
 		case R.id.help:
@@ -110,7 +110,7 @@ public class MainActivity extends MapActivity {
 			/*
 			 * "Run faggot run!" kanske borde sparas i filen strings istället?
 			 */
-			text.setText("Run faggot run!");
+			text.setText("Run towards the flags, when you get close to a flag it will turn green and you can continue to the next one");
 
 			Button button = (Button) helpDialog.findViewById(R.id.cancel);
 			button.setOnClickListener(new OnClickListener() {
@@ -272,7 +272,7 @@ public class MainActivity extends MapActivity {
 					 * user catches a flag if current position is within 50m of
 					 * a flag
 					 */
-					if (distance < 50) {
+					if (distance < 10) {
 						/*
 						 * checkpoint reached
 						 */

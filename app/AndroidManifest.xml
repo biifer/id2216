@@ -25,7 +25,8 @@
             android:label="Preview" >
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity" 
+            android:screenOrientation="portrait"
             android:label="Main" >
         </activity>
         <activity

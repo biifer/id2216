@@ -76,7 +76,7 @@ public class PreviewActivity extends MapActivity {
 			dialog.setCancelable(true);
 
 			TextView text = (TextView) dialog.findViewById(R.id.aboutText);
-			text.setText("I belive I can fly v1.02");
+			text.setText("Application done by Group6, v0.02 (beta)");
 
 			dialog.show();
 			break;
@@ -87,7 +87,7 @@ public class PreviewActivity extends MapActivity {
 			dialog2.setCancelable(true);
 
 			text = (TextView) dialog2.findViewById(R.id.Text);
-			text.setText("Help? Look at the map! That's you...");
+			text.setText("If you are not happy with the position of the flags press 'new route' to generate new flag positions");
 
 			Button button = (Button) dialog2.findViewById(R.id.cancel);
 			button.setOnClickListener(new OnClickListener() {
